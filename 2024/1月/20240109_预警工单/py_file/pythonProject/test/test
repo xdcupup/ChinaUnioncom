@@ -1,0 +1,30 @@
+from pyhive import hive
+import pandas as pd
+
+# 创建一个Hive连接
+connection = hive.Connection(
+    host='10.172.33.5',  # Hive服务器地址
+    port=10000,  # 默认端口
+    username='your_username',  # 用户名
+    password='your_password',  # 密码（如果需要）
+    database='default',  # 选择数据库
+    auth='NOSASL'  # 认证类型，可能是NOSASL、LDAP、KERBEROS等
+)
+
+# 创建一个游标
+cursor = connection.cursor()
+
+# 执行SQL查询
+cursor.execute("SELECT * FROM your_table LIMIT 10")
+
+# 获取结果
+result = cursor.fetchall()
+
+# 将结果转换为DataFrame
+df = pd.DataFrame(result)
+
+# 关闭连接
+cursor.close()
+connection.close()
+
+print(df)
