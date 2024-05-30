@@ -53,7 +53,10 @@ select * from DC_DWD.DWD_D_MRT_ZQZT_ORDER_DETAIL where month_id = '202405' and d
 
 
 
+select *
+from dc_dwa.dwa_d_sheet_main_history_ex;
 
+desc dc_dwa.dwa_d_sheet_main_history_ex;
 
 
 
@@ -73,6 +76,3 @@ select * from dc_dwd.DWD_M_EVT_ECS_SERV_MANAGER_MSG;
 select * from dc_dwd.DWD_D_EVT_ECS_SERV_MANAGER_RES;
 
 
-desc dc_dwd.DWD_D_EVT_ECS_SERV_MANAGER_CALL;
-desc dc_dwd.DWD_M_EVT_ECS_SERV_MANAGER_MSG;
-desc dc_dwd.DWD_D_EVT_ECS_SERV_MANAGER_RES;
