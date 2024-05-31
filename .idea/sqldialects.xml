@@ -7,6 +7,8 @@
     <file url="file://$PROJECT_DIR$/2024/5月/20240530_VIP客户经理指标/VIP客户经理电话接听率.sql" dialect="HiveQL" />
     <file url="file://$PROJECT_DIR$/2024/5月/20240530_VIP客户经理指标/VIP客户经理留言答复率.sql" dialect="HiveQL" />
     <file url="file://$PROJECT_DIR$/2024/5月/20240530_VIP客户经理指标/VIP客户经理问题解决率.sql" dialect="HiveQL" />
+    <file url="file://$PROJECT_DIR$/2024/5月/20240530_VIP客户经理指标/VIP新表4项指标.sql" dialect="HiveQL" />
+    <file url="file://$PROJECT_DIR$/2024/5月/20240530_VIP客户经理指标/预约完成率.sql" dialect="HiveQL" />
     <file url="file://$PROJECT_DIR$/2024/5月/20240530_白皮书转置/白皮书转置.sql" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/2024/test.sql" dialect="HiveQL" />
   </component>

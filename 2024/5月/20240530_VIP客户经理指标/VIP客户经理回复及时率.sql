@@ -35,41 +35,135 @@ from dc_dwd.DWD_M_EVT_ECS_SERV_MANAGER_MSG
 where reply_elapsed_time is not null
 limit 100;
 
-
+select prov_id
+from dc_dwd.DWD_M_EVT_ECS_SERV_MANAGER_MSG
+where month_id = '202404'
+limit 100;
 select *
 from dc_dim.dim_province_code
 where region_code is not null;
 -- 89 新疆
 -- 11 北京
 
-select meaning,
-       count(if((reply_elapsed_time / 1000) / 3600 <= 1, 1, null)) as fenzi,
-       count(*)                                                    as fenmu
-from dc_dwd.DWD_M_EVT_ECS_SERV_MANAGER_MSG t1
+select 'VIP客户经理回复及时率'                                                                           as index_name,
+       '全量'                                                                                            as cust_range,
+       meaning,
+       count(if((reply_elapsed_time / 1000) / 3600 <= 1, 1, null))                                       as fenzi,
+       count(reply_elapsed_time)                                                                         as fenmu,
+       round(count(if((reply_elapsed_time / 1000) / 3600 <= 1, 1, null)) / count(reply_elapsed_time), 6) as index_value
+from (select *
+      from dc_dwd.DWD_M_EVT_ECS_SERV_MANAGER_MSG a
+               left join dc_dim.dim_legal_holidays_code b
+                         on from_unixtime(cast(a.msg_time / 1000 as int), 'yyyyMMdd') = b.dt_id) t1
          right join (select * from dc_dim.dim_province_code where region_code is not null) t2
-                    on substr(t1.user_province_code, 2, 3) = t2.code
+                    on substr(t1.prov_id, 2, 3) = t2.code
 where speak_role = 'user' -- “发言角色”字段筛选为 “客户”
   and is_reply = '是'     -- “是否回复”字段为 “是”
   and ((from_unixtime(cast(msg_time / 1000 as int), 'HH:mm:ss') >= '09:00:00' and
         from_unixtime(cast(msg_time / 1000 as int), 'HH:mm:ss') <= '19:00:00' and
-        user_province_code = '011') -- 北京分公司VIP客户经理电话服务时间为工作日 9：00-19：00
+        prov_id = '011') -- 北京分公司VIP客户经理电话服务时间为工作日 9：00-19：00
     or (from_unixtime(cast(msg_time / 1000 as int), 'HH:mm:ss') >= '11:00:00' and
         from_unixtime(cast(msg_time / 1000 as int), 'HH:mm:ss') <= '19:00:00' and
-        user_province_code = '089') -- 新疆分公司VIP客户经理工作日服务时间为 11：00-19：00
+        prov_id = '089') -- 新疆分公司VIP客户经理工作日服务时间为 11：00-19：00
     or (from_unixtime(cast(msg_time / 1000 as int), 'HH:mm:ss') >= '09:00:00' and
         from_unixtime(cast(msg_time / 1000 as int), 'HH:mm:ss') <= '17:00:00' and
-        user_province_code not in ('089', '011')) -- 其他非电话服务的时间为工作日9：00-17：00
+        prov_id not in ('089', '011')) -- 其他非电话服务的时间为工作日9：00-17：00
     )
   and month_id = '202404'
+  and states = '0'
 group by meaning
+union all
+select 'VIP客户经理回复及时率'                                                                           as index_name,
+       '全量'                                                                                            as cust_range,
+       '全国'                                                                                            as meaning,
+       count(if((reply_elapsed_time / 1000) / 3600 <= 1, 1, null))                                       as fenzi,
+       count(reply_elapsed_time)                                                                         as fenmu,
+       round(count(if((reply_elapsed_time / 1000) / 3600 <= 1, 1, null)) / count(reply_elapsed_time), 6) as index_value
+from (select *
+      from dc_dwd.DWD_M_EVT_ECS_SERV_MANAGER_MSG a
+               left join dc_dim.dim_legal_holidays_code b
+                         on from_unixtime(cast(a.msg_time / 1000 as int), 'yyyyMMdd') = b.dt_id) t1
+         right join (select * from dc_dim.dim_province_code where region_code is not null) t2
+                    on substr(t1.prov_id, 2, 3) = t2.code
+where speak_role = 'user' -- “发言角色”字段筛选为 “客户”
+  and is_reply = '是'     -- “是否回复”字段为 “是”
+  and ((from_unixtime(cast(msg_time / 1000 as int), 'HH:mm:ss') >= '09:00:00' and
+        from_unixtime(cast(msg_time / 1000 as int), 'HH:mm:ss') <= '19:00:00' and
+        prov_id = '011') -- 北京分公司VIP客户经理电话服务时间为工作日 9：00-19：00
+    or (from_unixtime(cast(msg_time / 1000 as int), 'HH:mm:ss') >= '11:00:00' and
+        from_unixtime(cast(msg_time / 1000 as int), 'HH:mm:ss') <= '19:00:00' and
+        prov_id = '089') -- 新疆分公司VIP客户经理工作日服务时间为 11：00-19：00
+    or (from_unixtime(cast(msg_time / 1000 as int), 'HH:mm:ss') >= '09:00:00' and
+        from_unixtime(cast(msg_time / 1000 as int), 'HH:mm:ss') <= '17:00:00' and
+        prov_id not in ('089', '011')) -- 其他非电话服务的时间为工作日9：00-17：00
+    )
+  and month_id = '202404'
+  and states = '0'
+union all
+select 'VIP客户经理回复及时率'                                                                           as index_name,
+       '5-7'                                                                                             as cust_range,
+       meaning,
+       count(if((reply_elapsed_time / 1000) / 3600 <= 1, 1, null))                                       as fenzi,
+       count(reply_elapsed_time)                                                                         as fenmu,
+       round(count(if((reply_elapsed_time / 1000) / 3600 <= 1, 1, null)) / count(reply_elapsed_time), 6) as index_value
+from (select *
+      from dc_dwd.DWD_M_EVT_ECS_SERV_MANAGER_MSG a
+               left join dc_dim.dim_legal_holidays_code b
+                         on from_unixtime(cast(a.msg_time / 1000 as int), 'yyyyMMdd') = b.dt_id) t1
+         right join (select * from dc_dim.dim_province_code where region_code is not null) t2
+                    on substr(t1.prov_id, 2, 3) = t2.code
+where speak_role = 'user' -- “发言角色”字段筛选为 “客户”
+  and is_reply = '是'     -- “是否回复”字段为 “是”
+  and ((from_unixtime(cast(msg_time / 1000 as int), 'HH:mm:ss') >= '09:00:00' and
+        from_unixtime(cast(msg_time / 1000 as int), 'HH:mm:ss') <= '19:00:00' and
+        prov_id = '011') -- 北京分公司VIP客户经理电话服务时间为工作日 9：00-19：00
+    or (from_unixtime(cast(msg_time / 1000 as int), 'HH:mm:ss') >= '11:00:00' and
+        from_unixtime(cast(msg_time / 1000 as int), 'HH:mm:ss') <= '19:00:00' and
+        prov_id = '089') -- 新疆分公司VIP客户经理工作日服务时间为 11：00-19：00
+    or (from_unixtime(cast(msg_time / 1000 as int), 'HH:mm:ss') >= '09:00:00' and
+        from_unixtime(cast(msg_time / 1000 as int), 'HH:mm:ss') <= '17:00:00' and
+        prov_id not in ('089', '011')) -- 其他非电话服务的时间为工作日9：00-17：00
+    )
+  and month_id = '202404'
+  and states = '0'
+  and cust_level in ('Z5', 'Z6', 'Z7')
+group by meaning
+union all
+select 'VIP客户经理回复及时率'                                                                           as index_name,
+       '5-7'                                                                                            as cust_range,
+       '全国'                                                                                            as meaning,
+       count(if((reply_elapsed_time / 1000) / 3600 <= 1, 1, null))                                       as fenzi,
+       count(reply_elapsed_time)                                                                         as fenmu,
+       round(count(if((reply_elapsed_time / 1000) / 3600 <= 1, 1, null)) / count(reply_elapsed_time), 6) as index_value
+from (select *
+      from dc_dwd.DWD_M_EVT_ECS_SERV_MANAGER_MSG a
+               left join dc_dim.dim_legal_holidays_code b
+                         on from_unixtime(cast(a.msg_time / 1000 as int), 'yyyyMMdd') = b.dt_id) t1
+         right join (select * from dc_dim.dim_province_code where region_code is not null) t2
+                    on substr(t1.prov_id, 2, 3) = t2.code
+where speak_role = 'user' -- “发言角色”字段筛选为 “客户”
+  and is_reply = '是'     -- “是否回复”字段为 “是”
+  and ((from_unixtime(cast(msg_time / 1000 as int), 'HH:mm:ss') >= '09:00:00' and
+        from_unixtime(cast(msg_time / 1000 as int), 'HH:mm:ss') <= '19:00:00' and
+        prov_id = '011') -- 北京分公司VIP客户经理电话服务时间为工作日 9：00-19：00
+    or (from_unixtime(cast(msg_time / 1000 as int), 'HH:mm:ss') >= '11:00:00' and
+        from_unixtime(cast(msg_time / 1000 as int), 'HH:mm:ss') <= '19:00:00' and
+        prov_id = '089') -- 新疆分公司VIP客户经理工作日服务时间为 11：00-19：00
+    or (from_unixtime(cast(msg_time / 1000 as int), 'HH:mm:ss') >= '09:00:00' and
+        from_unixtime(cast(msg_time / 1000 as int), 'HH:mm:ss') <= '17:00:00' and
+        prov_id not in ('089', '011')) -- 其他非电话服务的时间为工作日9：00-17：00
+    )
+  and month_id = '202404'
+  and states = '0'
+  and cust_level in ('Z5', 'Z6', 'Z7')
 ;
-select from_unixtime(cast(a.msg_time / 1000 as int), 'yyyyMMdd'),
-       states --状态(0-工作日、1公休日、2法定节假日)'
+
+
+
+select *
 from dc_dwd.DWD_M_EVT_ECS_SERV_MANAGER_MSG a
          left join dc_dim.dim_legal_holidays_code b
                    on from_unixtime(cast(a.msg_time / 1000 as int), 'yyyyMMdd') = b.dt_id;
-
-show create table dc_dwd.DWD_M_EVT_ECS_SERV_MANAGER_MSG;
 
 create table dc_dim.dim_legal_holidays_code
 (
@@ -79,8 +173,36 @@ create table dc_dim.dim_legal_holidays_code
     comment '法定节假日维度表'
     row format delimited fields terminated by ',' stored as textfile
     location 'hdfs://Mycluster/warehouse/tablespace/external/hive/dc_dim.db/dim_legal_holidays_code';
--- hdfs dfs -put /data/disk03/hh_arm_prod_xkf_dc/data/xdc/dc_dwd_zhijia_team_1007.csv /user/hh_arm_prod_xkf_dc
-load data inpath '/user/hh_arm_prod_xkf_dc/dc_dwd_zhijia_team_1007.csv' overwrite into table dc_dwd.zhijia_team_1007;
+-- hdfs dfs -put /data/disk03/hh_arm_prod_xkf_dc/data/xdc/dim_legal_holidays_code.csv /user/hh_arm_prod_xkf_dc
+load data inpath '/user/hh_arm_prod_xkf_dc/dim_legal_holidays_code.csv' overwrite into table dc_dim.dim_legal_holidays_code;
 select *
-from dc_dwd.zhijia_team_1007
-limit 10;
+from dc_dim.dim_legal_holidays_code;
+
+
+
+select from_unixtime(cast(msg_time / 1000 as int), 'yyyy-MM-dd HH:mm:ss'),
+       speak_role,
+       prov_id,
+       states,
+       (reply_elapsed_time / 1000) / 3600
+from (select *
+      from dc_dwd.DWD_M_EVT_ECS_SERV_MANAGER_MSG a
+               left join dc_dim.dim_legal_holidays_code b
+                         on from_unixtime(cast(a.msg_time / 1000 as int), 'yyyyMMdd') = b.dt_id) t1
+         right join (select * from dc_dim.dim_province_code where region_code is not null) t2
+                    on substr(t1.prov_id, 2, 3) = t2.code
+where speak_role = 'user' -- “发言角色”字段筛选为 “客户”
+  and is_reply = '是'     -- “是否回复”字段为 “是”
+  and ((from_unixtime(cast(msg_time / 1000 as int), 'HH:mm:ss') >= '09:00:00' and
+        from_unixtime(cast(msg_time / 1000 as int), 'HH:mm:ss') <= '19:00:00' and
+        prov_id = '011') -- 北京分公司VIP客户经理电话服务时间为工作日 9：00-19：00
+    or (from_unixtime(cast(msg_time / 1000 as int), 'HH:mm:ss') >= '11:00:00' and
+        from_unixtime(cast(msg_time / 1000 as int), 'HH:mm:ss') <= '19:00:00' and
+        prov_id = '089') -- 新疆分公司VIP客户经理工作日服务时间为 11：00-19：00
+    or (from_unixtime(cast(msg_time / 1000 as int), 'HH:mm:ss') >= '09:00:00' and
+        from_unixtime(cast(msg_time / 1000 as int), 'HH:mm:ss') <= '17:00:00' and
+        prov_id not in ('089', '011')) -- 其他非电话服务的时间为工作日9：00-17：00
+    )
+  and month_id = '202404'
+  and states = '0'
+  and prov_id in ('089');
