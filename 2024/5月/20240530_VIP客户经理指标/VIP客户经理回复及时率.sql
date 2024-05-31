@@ -71,8 +71,16 @@ from dc_dwd.DWD_M_EVT_ECS_SERV_MANAGER_MSG a
 
 show create table dc_dwd.DWD_M_EVT_ECS_SERV_MANAGER_MSG;
 
-CREATE TABLE dc_dim.dim_legal_holidays_code (
-dt_id string COMMENT '账期',
-states string COMMENT '状态(0-工作日、1公休日、2法定节假日)')
-comment '法定节假日维度表'
-
+create table dc_dim.dim_legal_holidays_code
+(
+    dt_id  string comment '账期',
+    states string comment '状态(0-工作日、1公休日、2法定节假日)'
+)
+    comment '法定节假日维度表'
+    row format delimited fields terminated by ',' stored as textfile
+    location 'hdfs://Mycluster/warehouse/tablespace/external/hive/dc_dim.db/dim_legal_holidays_code';
+-- hdfs dfs -put /data/disk03/hh_arm_prod_xkf_dc/data/xdc/dc_dwd_zhijia_team_1007.csv /user/hh_arm_prod_xkf_dc
+load data inpath '/user/hh_arm_prod_xkf_dc/dc_dwd_zhijia_team_1007.csv' overwrite into table dc_dwd.zhijia_team_1007;
+select *
+from dc_dwd.zhijia_team_1007
+limit 10;
