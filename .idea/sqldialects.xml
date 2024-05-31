@@ -3,6 +3,10 @@
   <component name="SqlDialectMappings">
     <file url="file://$PROJECT_DIR$/2024/4月/20240416_线下指标转置/线下指标转置.sql" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/2024/5月/20240524_工单标签统计/提取.sql" dialect="HiveQL" />
+    <file url="file://$PROJECT_DIR$/2024/5月/20240530_VIP客户经理指标/VIP客户经理回复及时率.sql" dialect="HiveQL" />
+    <file url="file://$PROJECT_DIR$/2024/5月/20240530_VIP客户经理指标/VIP客户经理电话接听率.sql" dialect="HiveQL" />
+    <file url="file://$PROJECT_DIR$/2024/5月/20240530_VIP客户经理指标/VIP客户经理留言答复率.sql" dialect="HiveQL" />
+    <file url="file://$PROJECT_DIR$/2024/5月/20240530_VIP客户经理指标/VIP客户经理问题解决率.sql" dialect="HiveQL" />
     <file url="file://$PROJECT_DIR$/2024/5月/20240530_白皮书转置/白皮书转置.sql" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/2024/test.sql" dialect="HiveQL" />
   </component>

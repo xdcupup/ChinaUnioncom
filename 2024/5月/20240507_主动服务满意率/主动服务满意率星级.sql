@@ -2,8 +2,8 @@ set hive.mapred.mode = nonstrict;
 set mapreduce.job.queuename = q_dc_dw;
 
 drop table dc_dwd.xdc_temp01;
--- create table dc_dwd.xdc_temp01 as
-insert into table dc_dwd.xdc_temp01
+create table dc_dwd.xdc_temp01 as
+-- insert into table dc_dwd.xdc_temp01
 select ID,
        PHONE,
        PHONE_TYPE_CODE,
