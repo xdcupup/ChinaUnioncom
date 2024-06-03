@@ -1,11 +1,6 @@
 set hive.mapred.mode = nonstrict;
 set mapreduce.job.queuename = q_dc_dw;
 
--- 实时测评系统-测评报表-新手厅测评报表-手厅服务经理测评场景总体报表，取“问题解决率”字段数据
--- 手厅服务经理报表中问题解决分项计算问题解决率
--- VIP客户经理问题解决率=1-（全量评价用户选择“问题未解决”选项人数/评价用户数）
-
-
 drop table dc_dwd.xdc_temp01;
 create table dc_dwd.xdc_temp01 as
 -- insert into table dc_dwd.xdc_temp01
@@ -72,14 +67,18 @@ from dc_dwd.xdc_temp01;
 
 
 -- 海南省
-select 'VIP客户经理问题解决率'         as index_name,
-       '全量'                          as cust_range,
-       province_name                   as meaning,
-       wtjj                            as fenzi,
-       user_cnt                        as fenmu,
-       round(1 - (wtjj / user_cnt), 6) as index_value
+select 'VIP客户经理问题解决率'                  as index_name,
+       '全量'                                   as cust_range,
+       province_name                            as meaning,
+       wtjj,
+       tdjn,
+       user_cnt,
+       round(1 - ((tdjn + wtjj) / user_cnt), 6) as index_value
 from (select province_name,
              count(*)            as user_cnt,
+             sum(case
+                     when user_rating_icon in ('非常不满意', '不满意', '一般') and find_two = '1' then 1
+                     else 0 end) as tdjn,
              sum(case
                      when user_rating_icon in ('非常不满意', '不满意') and find_four = '1' then 1
                      else 0 end) as wtjj
@@ -89,14 +88,18 @@ from (select province_name,
       group by province_name) t1
 union all
 -- 30省
-select 'VIP客户经理问题解决率'         as index_name,
-       '全量'                          as cust_range,
-       province_name                   as meaning,
-       wtjj                            as fenzi,
-       user_cnt                        as fenmu,
-       round(1 - (wtjj / user_cnt), 6) as index_value
+select 'VIP客户经理问题解决率'                  as index_name,
+       '全量'                                   as cust_range,
+       province_name                            as meaning,
+       wtjj,
+       tdjn,
+       user_cnt,
+       round(1 - ((tdjn + wtjj) / user_cnt), 6) as index_value
 from (select province_name,
              count(*)            as user_cnt,
+             sum(case
+                     when user_rating_icon in ('非常不满意', '不满意', '一般') and find_two = '1' then 1
+                     else 0 end) as tdjn,
              sum(case
                      when user_rating_icon in ('非常不满意', '不满意') and find_four = '1' then 1
                      else 0 end) as wtjj
@@ -106,32 +109,46 @@ from (select province_name,
       group by province_name) t1
 union all
 -- 全国
-select 'VIP客户经理问题解决率'                   as index_name,
-       '全量'                                    as cust_range,
-       '全国'                                    as meaning,
-       sum(wtjj)                                 as fenzi,
-       sum(user_cnt)                             as fenmu,
-       round(1 - (sum(wtjj) / sum(user_cnt)), 6) as index_value
-from (select province_name,
-             user_cnt,
+select 'VIP客户经理问题解决率'                                 as index_name,
+       '全量'                                                  as cust_range,
+       '全国'                                                  as meaning,
+       sum(wtjj)                                               as wtjj,
+       sum(tdjn)                                               as tdjn,
+       sum(user_cnt)                                           as user_cnt,
+       round(1 - ((sum(tdjn) + sum(wtjj)) / sum(user_cnt)), 6) as index_value
+from (select 'VIP客户经理问题解决率'                  as index_name,
+             '全量'                                   as cust_range,
+             province_name                            as meaning,
              wtjj,
-             round(1 - (wtjj / user_cnt), 6) as index_value
+             tdjn,
+             user_cnt,
+             round(1 - ((tdjn + wtjj) / user_cnt), 6) as index_value
       from (select province_name,
                    count(*)            as user_cnt,
                    sum(case
+                           when user_rating_icon in ('非常不满意', '不满意', '一般') and find_two = '1' then 1
+                           else 0 end) as tdjn,
+                   sum(case
                            when user_rating_icon in ('非常不满意', '不满意') and find_four = '1' then 1
                            else 0 end) as wtjj
-            from dc_dwd.xdc_temp01
+            from dc_dwd.xdc_temp01 cc
             where date_id like '2024-04%'
               and province_name is not null
             group by province_name) t1
       union all
-      select province_name,
-             user_cnt,
+-- 30省
+      select 'VIP客户经理问题解决率'                  as index_name,
+             '全量'                                   as cust_range,
+             province_name                            as meaning,
              wtjj,
-             round(1 - (wtjj / user_cnt), 6) as index_value
+             tdjn,
+             user_cnt,
+             round(1 - ((tdjn + wtjj) / user_cnt), 6) as index_value
       from (select province_name,
                    count(*)            as user_cnt,
+                   sum(case
+                           when user_rating_icon in ('非常不满意', '不满意', '一般') and find_two = '1' then 1
+                           else 0 end) as tdjn,
                    sum(case
                            when user_rating_icon in ('非常不满意', '不满意') and find_four = '1' then 1
                            else 0 end) as wtjj
@@ -141,14 +158,18 @@ from (select province_name,
             group by province_name) t1) t3
 union all
 -- 海南省
-select 'VIP客户经理问题解决率'         as index_name,
-       '5-7'                           as cust_range,
-       province_name                   as meaning,
-       wtjj                            as fenzi,
-       user_cnt                        as fenmu,
-       round(1 - (wtjj / user_cnt), 6) as index_value
+select 'VIP客户经理问题解决率'                  as index_name,
+       '5-7星'                                  as cust_range,
+       province_name                            as meaning,
+       wtjj,
+       tdjn,
+       user_cnt,
+       round(1 - ((tdjn + wtjj) / user_cnt), 6) as index_value
 from (select province_name,
              count(*)            as user_cnt,
+             sum(case
+                     when user_rating_icon in ('非常不满意', '不满意', '一般') and find_two = '1' then 1
+                     else 0 end) as tdjn,
              sum(case
                      when user_rating_icon in ('非常不满意', '不满意') and find_four = '1' then 1
                      else 0 end) as wtjj
@@ -206,14 +227,18 @@ from (select province_name,
       group by province_name) t1
 union all
 -- 30省
-select 'VIP客户经理问题解决率'         as index_name,
-       '5-7'                           as cust_range,
-       province_name                   as meaning,
-       wtjj                            as fenzi,
-       user_cnt                        as fenmu,
-       round(1 - (wtjj / user_cnt), 6) as index_value
+select 'VIP客户经理问题解决率'                  as index_name,
+       '5-7星'                                    as cust_range,
+       province_name                            as meaning,
+       wtjj,
+       tdjn,
+       user_cnt,
+       round(1 - ((tdjn + wtjj) / user_cnt), 6) as index_value
 from (select province_name,
              count(*)            as user_cnt,
+             sum(case
+                     when user_rating_icon in ('非常不满意', '不满意', '一般') and find_two = '1' then 1
+                     else 0 end) as tdjn,
              sum(case
                      when user_rating_icon in ('非常不满意', '不满意') and find_four = '1' then 1
                      else 0 end) as wtjj
@@ -272,17 +297,24 @@ from (select province_name,
 union all
 -- 全国
 select 'VIP客户经理问题解决率'                   as index_name,
-       '5-7'                                     as cust_range,
+       '5-7星'                                     as cust_range,
        '全国'                                    as meaning,
-       sum(wtjj)                                 as fenzi,
-       sum(user_cnt)                             as fenmu,
-       round(1 - (sum(wtjj) / sum(user_cnt)), 6) as index_value
-from (select province_name,
-             user_cnt,
+       sum(wtjj)                                               as wtjj,
+       sum(tdjn)                                               as tdjn,
+       sum(user_cnt)                                           as user_cnt,
+       round(1 - ((sum(tdjn) + sum(wtjj)) / sum(user_cnt)), 6) as index_value
+from (select 'VIP客户经理问题解决率'                  as index_name,
+             '5-7星'                                  as cust_range,
+             province_name                            as meaning,
              wtjj,
-             round(1 - (wtjj / user_cnt), 6) as index_value
+             tdjn,
+             user_cnt,
+             round(1 - ((tdjn + wtjj) / user_cnt), 6) as index_value
       from (select province_name,
                    count(*)            as user_cnt,
+                   sum(case
+                           when user_rating_icon in ('非常不满意', '不满意', '一般') and find_two = '1' then 1
+                           else 0 end) as tdjn,
                    sum(case
                            when user_rating_icon in ('非常不满意', '不满意') and find_four = '1' then 1
                            else 0 end) as wtjj
@@ -328,20 +360,30 @@ from (select province_name,
                          vip_class_id
                   from dc_dwd.xdc_temp01 tb1
                            left join (select *
-                                      from hh_arm_prod_xkf_dc.dwd_d_cus_e_cust_group_starinfo_tm
-                                      where month_id = '202404'
-                                        and day_id = '30') tb2 on tb1.phone = tb2.device_number) cc
+                                      from (select *,
+                                                   row_number() over (partition by device_number order by vip_class_id ) as rn1
+                                            from hh_arm_prod_xkf_dc.dwd_d_cus_e_cust_group_starinfo_tm
+                                            where month_id = '202404'
+                                              and day_id = '30') aa
+                                      where rn1 = 1) tb2 on tb1.phone = tb2.device_number) cc
             where date_id like '2024-04%'
               and province_name is not null
               and vip_class_id in ('500', '600', '700')
             group by province_name) t1
       union all
-      select province_name,
-             user_cnt,
+-- 30省
+      select 'VIP客户经理问题解决率'                  as index_name,
+             '5-7'                                    as cust_range,
+             province_name                            as meaning,
              wtjj,
-             round(1 - (wtjj / user_cnt), 6) as index_value
+             tdjn,
+             user_cnt,
+             round(1 - ((tdjn + wtjj) / user_cnt), 6) as index_value
       from (select province_name,
                    count(*)            as user_cnt,
+                   sum(case
+                           when user_rating_icon in ('非常不满意', '不满意', '一般') and find_two = '1' then 1
+                           else 0 end) as tdjn,
                    sum(case
                            when user_rating_icon in ('非常不满意', '不满意') and find_four = '1' then 1
                            else 0 end) as wtjj
