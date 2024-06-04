@@ -18,10 +18,10 @@ set mapreduce.job.queuename = q_dc_dw;
 --todo 分子：工作时间内通过联通APP-VIP客户经理留言模块收到的所有客户角色发起留言记录中，
 --todo 在1小时内被VIP客户经理回复的留言记录数（即上述筛选条件后，“回复时长”字段的时间小于等于1小时的留言记录条数）。
 --todo 分母：工作时间内通过联通APP-VIP客户经理留言模块收到客户角色发起留言记录数。（即“回复时长”的是、否，2项的合计量）"
-
+-- hadoop fs -ls -R hdfs://Mycluster/user/hh_arm_prod_xkf_dc/warehouse/dc_dwd.db/dwd_m_evt_ecs_serv_manager_msg
 -- msg_time 留言时间
-
-
+show create table dc_dwd.DWD_M_EVT_ECS_SERV_MANAGER_MSG;
+show create table  dwd_d_evt_ecs_serv_manager_msg;
 select from_unixtime(cast(msg_time / 1000 as int), 'yyyy-MM-dd HH:mm:ss'), msg_time
 from dc_dwd.DWD_M_EVT_ECS_SERV_MANAGER_MSG
 where month_id = '202404'
@@ -37,8 +37,9 @@ limit 100;
 
 select prov_id
 from dc_dwd.DWD_M_EVT_ECS_SERV_MANAGER_MSG
-where month_id = '202404'
+where month_id = '202405'
 limit 100;
+
 select *
 from dc_dim.dim_province_code
 where region_code is not null;
@@ -130,7 +131,7 @@ where speak_role = 'user' -- “发言角色”字段筛选为 “客户”
 group by meaning
 union all
 select 'VIP客户经理回复及时率'                                                                           as index_name,
-       '5-7'                                                                                            as cust_range,
+       '5-7'                                                                                             as cust_range,
        '全国'                                                                                            as meaning,
        count(if((reply_elapsed_time / 1000) / 3600 <= 1, 1, null))                                       as fenzi,
        count(reply_elapsed_time)                                                                         as fenmu,
@@ -206,3 +207,19 @@ where speak_role = 'user' -- “发言角色”字段筛选为 “客户”
   and month_id = '202404'
   and states = '0'
   and prov_id in ('089');
+
+
+select t1.*, from_unixtime(cast(msg_time / 1000 as int), 'yyyy-MM-dd HH:mm:ss') as tm,(reply_elapsed_time / 1000) / 3600 as rpltm
+from (select *
+      from dc_dwd.DWD_M_EVT_ECS_SERV_MANAGER_MSG a
+               left join dc_dim.dim_legal_holidays_code b
+                         on from_unixtime(cast(a.msg_time / 1000 as int), 'yyyyMMdd') = b.dt_id) t1
+         right join (select * from dc_dim.dim_province_code where region_code is not null) t2
+                    on substr(t1.prov_id, 2, 3) = t2.code
+where prov_id = '089'
+  and from_unixtime(cast(msg_time / 1000 as int), 'HH:mm:ss') >= '11:00:00'
+  and from_unixtime(cast(msg_time / 1000 as int), 'HH:mm:ss') <= '19:00:00'
+  and speak_role = 'user'
+  and is_reply = '是'
+    and states = '0'
+  and month_id = '202404';

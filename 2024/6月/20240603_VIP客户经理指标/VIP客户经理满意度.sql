@@ -130,9 +130,8 @@ from (select count(USER_RATING) mention,
                   where date_par rlike '202404') a
             where rn = 1
               and BUSINESS_TYPE_CODE = '8005') a
-      where rn1 = 1) a;
-
-
+      where rn1 = 1) a
+union all
 select 'VIP客户经理满意度' as index_name,
        '5-7星'              as cust_range,
        a.province_name        meaning,
@@ -211,4 +210,4 @@ from (select
                              and day_id = '30') aa
                      where rn1 = 1) b on a.phone = b.device_number
       where a.rn1 = 1
-        and vip_class_id in ('500', '600', '700')) a
+        and vip_class_id in ('500', '600', '700')) a;
