@@ -2,8 +2,12 @@
 <project version="4">
   <component name="SqlDialectMappings">
     <file url="file://$PROJECT_DIR$/2024/4月/20240416_线下指标转置/线下指标转置.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/2024/5月/20240506_投诉五维度统计/投诉五维度统计.sql" dialect="HiveQL" />
     <file url="file://$PROJECT_DIR$/2024/5月/20240507_主动服务满意率/主动服务满意率星级.sql" dialect="HiveQL" />
+    <file url="file://$PROJECT_DIR$/2024/5月/20240507_企业侧/指标SQL更新/互联网专线三日开通率.sql" dialect="HiveQL" />
     <file url="file://$PROJECT_DIR$/2024/5月/20240521_紧急开机满意率四五星合计/自助侧紧急开机满意率.sql" dialect="HiveQL" />
+    <file url="file://$PROJECT_DIR$/2024/5月/20240523_装机当日通当日好_分市场类型/当日好.sql" dialect="HiveQL" />
+    <file url="file://$PROJECT_DIR$/2024/5月/20240523_装机当日通当日好_分市场类型/装机当日通当日好.sql" dialect="HiveQL" />
     <file url="file://$PROJECT_DIR$/2024/5月/20240524_工单标签统计/提取.sql" dialect="HiveQL" />
     <file url="file://$PROJECT_DIR$/2024/5月/20240530_VIP客户经理指标/VIP客户经理回复及时率.sql" dialect="HiveQL" />
     <file url="file://$PROJECT_DIR$/2024/5月/20240530_VIP客户经理指标/VIP客户经理满意度.sql" dialect="HiveQL" />
@@ -24,11 +28,18 @@
     <file url="file://$PROJECT_DIR$/2024/6月/20240603_VIP客户经理指标/VIP新表4项指标.sql" dialect="HiveQL" />
     <file url="file://$PROJECT_DIR$/2024/6月/20240603_VIP客户经理指标/预约完成率.sql" dialect="HiveQL" />
     <file url="file://$PROJECT_DIR$/2024/6月/20240604_202305-202406产品在2024年5月份的投诉、申诉、舆情数据及明细/统计数据提取.sql" dialect="HiveQL" />
+    <file url="file://$PROJECT_DIR$/2024/6月/20240604_企业侧指标口径更改/10010-全量工单响应率.sql" dialect="HiveQL" />
+    <file url="file://$PROJECT_DIR$/2024/6月/20240604_企业侧指标口径更改/10010-全量工单满意率.sql" dialect="HiveQL" />
+    <file url="file://$PROJECT_DIR$/2024/6月/20240604_企业侧指标口径更改/10010-全量工单解决率.sql" dialect="HiveQL" />
     <file url="file://$PROJECT_DIR$/2024/6月/20240604_投诉五维度统计/投诉五维度统计.sql" dialect="HiveQL" />
     <file url="file://$PROJECT_DIR$/2024/6月/20240604_紧急开机满意率增加四五星合计/自助侧紧急开机满意全部.sql" dialect="HiveQL" />
     <file url="file://$PROJECT_DIR$/2024/6月/20240604_紧急开机满意率增加四五星合计/自助侧紧急开机满意率45星.sql" dialect="HiveQL" />
     <file url="file://$PROJECT_DIR$/2024/6月/20240604_老年人宽带测速满意率/老年人宽带测速满意率.sql" dialect="HiveQL" />
     <file url="file://$PROJECT_DIR$/2024/6月/20240604_营业厅实时测评/日脚本.sql" dialect="HiveQL" />
+    <file url="file://$PROJECT_DIR$/2024/6月/20240605_企业侧测算/20240507_企业侧.sql" dialect="HiveQL" />
+    <file url="file://$PROJECT_DIR$/2024/6月/20240605_企业侧测算/建表.sql" dialect="HiveQL" />
+    <file url="file://$PROJECT_DIR$/2024/6月/20240605_企业侧测算/得分计算/2_企业侧得分.sql" dialect="HiveQL" />
+    <file url="file://$PROJECT_DIR$/2024/6月/20240605_企业侧测算/测算得分.sql" dialect="HiveQL" />
     <file url="file://$PROJECT_DIR$/2024/test.sql" dialect="HiveQL" />
   </component>
 </project>

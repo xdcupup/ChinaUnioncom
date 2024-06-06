@@ -1,12 +1,12 @@
 set hive.mapred.mode = nonstrict;
 set mapreduce.job.queuename = q_dc_dw;
-select fl, count(*)
+select *,substr(archived_time, 0, 6)
 from dc_dwd.cp_lianjie
-where archived_time = '20240603'
-group by fl;
+where archived_time = '20240531'
+;
 select * from dc_dwd.YYT_DETAILED_STATEMENT_hz;
 select * from dc_dwd.YYT_DETAILED_STATEMENT where date_id = '20240531';
-
+select * from dc_dwd.cptssyqmxblj_new;
 desc dc_dwd.cp_lianjie;
 
 
@@ -40,7 +40,7 @@ set mapreduce.job.queuename = q_dc_dw;
 
 -- 按省份分组
 with t1 as (select *
-            from dc_dwd.cp_lianjie
+            from dc_dwd.cptssyqmxblj_new
             where substr(archived_time, 0, 6) = '202405'),
      t3 as (select sheet_no,
                    compl_prov_name,
@@ -66,7 +66,7 @@ group by compl_prov_name, fl
 
 -- 工单标签分组
 with t1 as (select *
-            from dc_dwd.cp_lianjie
+            from dc_dwd.cptssyqmxblj_new
             where substr(archived_time, 0, 6) = '202405'),
      t3 as (select sheet_no,
                    compl_prov_name,
@@ -92,7 +92,7 @@ group by serv_type_name, fl
 
 -- 各环节聚类问题2
 with t1 as (select *
-            from dc_dwd.cp_lianjie
+            from dc_dwd.cptssyqmxblj_new
             where substr(archived_time, 0, 6) = '202405'),
      t3 as (select sheet_no,
                    compl_prov_name,
@@ -118,7 +118,7 @@ group by clustering_problem_2, fl
 
 -- 各环节聚类问题1
 with t1 as (select *
-            from dc_dwd.cp_lianjie
+            from dc_dwd.cptssyqmxblj_new
             where substr(archived_time, 0, 6) = '202405'),
      t3 as (select sheet_no,
                    compl_prov_name,
@@ -144,7 +144,7 @@ group by clustering_problem_1, fl
 
 -- 产品全生命周期环节
 with t1 as (select *
-            from dc_dwd.cp_lianjie
+            from dc_dwd.cptssyqmxblj_new
             where  substr(archived_time, 0, 6) = '202405'),
      t3 as (select sheet_no,
                    compl_prov_name,
@@ -169,7 +169,7 @@ group by pro_life_cycle_all,fl
 
 
 with t1 as (select *
-            from dc_dwd.cp_lianjie
+            from dc_dwd.cptssyqmxblj_new
             where  substr(archived_time, 0, 6) = '202405'),
      t3 as (select sheet_no,
                    compl_prov_name,

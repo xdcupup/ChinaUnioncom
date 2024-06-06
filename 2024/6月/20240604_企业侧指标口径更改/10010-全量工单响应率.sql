@@ -1,10 +1,9 @@
 set hive.mapred.mode = nonstrict;
-set mapreduce.job.queuename = q_dc_dw;
+    set mapreduce.job.queuename = q_dc_dw;
 
+-- todo 10010-全量工单响应率
 
--- todo 10010-全量工单满意率
-
-insert overwrite table dc_dm.dm_service_standard_enterprise_index partition (monthid = '${v_month_id}', index_code = '10010qlgdmyl')
+insert overwrite table dc_dm.dm_service_standard_enterprise_index partition (monthid = '${v_month_id}', index_code = '10010qlgdxylqy')
 select pro_name,
        area_name,
        index_level_1,
@@ -51,25 +50,25 @@ select pro_name,
                                                      end
                end
            end as score
-from (select meaning                                                                                as pro_name,                --省份名称
-             '全省'                                                                                 as area_name,               --地市名称
-             '公众服务'                                                                             as index_level_1,           -- 指标级别一
-             '渠道'                                                                                 as index_level_2_big,       -- 指标级别二大类
-             '客服热线'                                                                             as index_level_2_small,     -- 指标级别二小类
-             '服务内容'                                                                             as index_level_3,           --指标级别三
-             '问题限时解决'                                                                         as index_level_4,           -- 指标级别四
-             '--'                                                                                   as kpi_code,                --指标编码
-             '10010-全量工单满意率'                                                           as index_name,              --五级-指标项名称
-             '≥'                                                                                    as standard_rule,           --达标规则
-             '0.9'                                                                                  as traget_value_nation,     --目标值全国
-             '0.9'                                                                                  as traget_value_pro,        --目标值省份
-             if(meaning = '全国', '0.9', '0.9')                                                     as target_value,
-             '%'                                                                                    as index_unit,              --指标单位
-             '实时测评'                                                                             as index_type,              --指标类型
-             '90'                                                                                   as score_standard,          -- 得分达标值
-             nvl(curr_total_satisfied, '--')                                                        as index_value_numerator,   --分子
-             nvl(curr_total_satisfied_cp + is_novisit_cnt, '--')                                    as index_value_denominator, --分母;
-             nvl(round(curr_total_satisfied / (curr_total_satisfied_cp + is_novisit_cnt), 6), '--') as index_value
+from (select meaning                                                                          as pro_name,                --省份名称
+             '全省'                                                                           as area_name,               --地市名称
+             '公众服务'                                                                       as index_level_1,           -- 指标级别一
+             '渠道'                                                                           as index_level_2_big,       -- 指标级别二大类
+             '客服热线'                                                                       as index_level_2_small,     -- 指标级别二小类
+             '服务响应'                                                                       as index_level_3,           --指标级别三
+             '来电应接尽接'                                                                   as index_level_4,           -- 指标级别四
+             '--'                                                                             as kpi_code,                --指标编码
+             '10010-全量工单响应率'                                                     as index_name,              --五级-指标项名称
+             '≥'                                                                              as standard_rule,           --达标规则
+             '0.9'                                                                            as traget_value_nation,     --目标值全国
+             '0.9'                                                                            as traget_value_pro,        --目标值省份
+             if(meaning = '全国', '0.9', '0.9')                                               as target_value,
+             '%'                                                                              as index_unit,              --指标单位
+             '实时测评'                                                                       as index_type,              --指标类型
+             '90'                                                                             as score_standard,          -- 得分达标值
+             nvl(timely_contact_cnt, '--')                                                    as index_value_numerator,   --分子
+             nvl(join_timely_contact + is_novisit_cnt, '--')                                  as index_value_denominator, --分母;
+             nvl(round(timely_contact_cnt / (join_timely_contact + is_novisit_cnt), 6), '--') as index_value
       from (select meaning,
                    sum(curr_total_satisfied)    as curr_total_satisfied,
                    sum(curr_total_satisfied_cp) as curr_total_satisfied_cp,
@@ -110,7 +109,7 @@ from (select meaning                                                            
                            from dc_dm.dm_d_de_gpzfw_yxcs_acc
                            where month_id = '${v_month_id}'
                              and day_id = '${v_last_day}'
---                              and is_distri_prov = '1'
+--                              and is_distri_prov = '0'
                              and sheet_type_code in ('01', '04') -- 限制工单类型
                              and nvl(sheet_pro, '') != '') tb
                               right join (select * from dc_dim.dim_province_code where region_code is not null) pc
@@ -148,7 +147,7 @@ from (select meaning                                                            
                            from dc_dm.dm_d_de_gpzfw_yxcs_acc
                            where month_id = '${v_month_id}'
                              and day_id = '${v_last_day}'
---                              and is_distri_prov = '1'
+--                              and is_distri_prov = '0'
                              and sheet_type_code in ('01', '04') -- 限制工单类型
                              and nvl(sheet_pro, '') != '') tb
                      union all
@@ -183,7 +182,7 @@ from (select meaning                                                            
                                    and day_id = '${v_last_day}') vv
                            where month_id = '${v_month_id}'
                              and day_id = '${v_last_day}'
---                              and is_distri_prov = '1'
+--                              and is_distri_prov = '0'
                            group by compl_prov) v
                               right join (select * from dc_dim.dim_province_code where region_code is not null) pc
                                          on v.compl_prov = pc.code
@@ -218,7 +217,7 @@ from (select meaning                                                            
                                    and day_id = '${v_last_day}') vv
                            where month_id = '${v_month_id}'
                              and day_id = '${v_last_day}'
---                              and is_distri_prov = '1'
+--                              and is_distri_prov = '0'
                            ) aa) kk
             group by meaning) c) aa;
 

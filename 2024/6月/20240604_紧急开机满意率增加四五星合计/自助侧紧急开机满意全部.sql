@@ -1,7 +1,8 @@
 set hive.mapred.mode = nonstrict;
 set mapreduce.job.queuename = q_dc_dw;
 
-
+select *
+from dc_dwd.start_xdc_temp;
 select tb1.meaning,
        tb1.vip_class_id,
        nvl(tb2.cnt, '--')          as cnt_1, --`成功量（自助申请）`,
@@ -11,7 +12,7 @@ select tb1.meaning,
        nvl(tb3.user_cnt, '--')     as cnt_5, --`申请用户量（符合紧急开机条件）`,
        nvl(tb4.cnt, '--')          as cnt_6, --`话务量（自助申请紧急开机话务）`,
        nvl(tb4.user_num, '--')     as cnt_7  --`申请用户量`
-from dc_dwd.start_xdc_temp tb1
+from dc_dwd.start_xdc_temp02 tb1
          left join (select nvl(meaning, '--')      as meaning,
                            nvl(vip_class_id, '--') as vip_class_id,
                            nvl(cnt, '--')          as cnt,
@@ -687,6 +688,37 @@ from dc_dwd.start_xdc_temp tb1
                              group by vip_class_id) aa) tb4
                    on tb1.meaning = tb4.meaning and tb1.vip_class_id = tb4.vip_class_id;
 
+set hive.mapred.mode = nonstrict;
+set mapreduce.job.queuename = q_dc_dw;
+select *
+from dc_dwd.xdc_star_temp_45
+limit 10;
+
+drop table  dc_dwd.start_xdc_temp02;
+create table dc_dwd.start_xdc_temp02 as
+select meaning, vip_class_id
+from (select distinct vip_class_id
+      from dc_dwd.start_xdc_temp
+      union all
+      select '4-5星' as vip_class_id) t1
+         join (select meaning
+               from dc_dim.dim_province_code
+               where region_code is not null
+               union all
+               select '全国' as meaning) t2;
+
+insert overwrite table dc_dwd.start_xdc_temp02
+select meaning, vip_class_id
+from (select distinct vip_class_id
+      from dc_dwd.start_xdc_temp
+      union all
+      select '4-5星' as vip_class_id) t1
+         join (select meaning
+               from dc_dim.dim_province_code
+               where region_code is not null
+               union all
+               select '全国' as meaning) t2;
 
 
-
+select *
+from dc_dwd.start_xdc_temp02;

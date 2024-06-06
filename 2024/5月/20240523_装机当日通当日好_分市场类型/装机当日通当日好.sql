@@ -1,4 +1,5 @@
-
+set hive.mapred.mode = nonstrict;
+    set mapreduce.job.queuename = q_dc_dw;
 
 select meaning,
        market_seg_type,
@@ -29,8 +30,11 @@ select meaning,
        count(is_drt)                  as fenmu,
        month_id
 from dc_dwa.dwa_v_d_evt_install_w t1
-         join (select * from dc_dim.dim_province_code) t2 on substr(prov_id, 2, 3) = code
+         join (select * from dc_dim.dim_province_code where region_code is not null) t2 on substr(prov_id, 2, 3) = code
 where month_id = '202403'
 group by market_seg_type, meaning, month_id,product_name;
 
+
+select count(*)
+from dc_dwa.dwa_v_d_evt_install_w where prov_id is null ;
 

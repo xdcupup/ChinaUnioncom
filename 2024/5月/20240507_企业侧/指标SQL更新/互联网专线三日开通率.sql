@@ -108,11 +108,11 @@ from (select pro_name,                                                       --�
                                   day_id
                            from (select *
                                  from DC_DWD.DWD_D_MRT_ZQZT_ORDER_DETAIL
-                                 where month_id = '202404'
+                                 where month_id = '202405'
                                    and day_id in (select max(day_id)
                                                   from DC_DWD.DWD_D_MRT_ZQZT_ORDER_DETAIL
-                                                  where month_id = '202404')
-                                   and fi_date = '202404') as t1
+                                                  where month_id = '202405')
+                                   and fi_date = '202405') as t1
                            where service_id = '互联网专线'
                              and is_resource = '具备') as a
                               left join (select area_id_cbss, province_code, area_id_desc_cbss, prov_desc
@@ -152,16 +152,13 @@ from (select pro_name,                                                       --�
                             day_id
                      from (select *
                            from DC_DWD.DWD_D_MRT_ZQZT_ORDER_DETAIL
-                           where month_id = '202404'
+                           where month_id = '202405'
                              and day_id in (select max(day_id)
                                             from DC_DWD.DWD_D_MRT_ZQZT_ORDER_DETAIL
-                                            where month_id = '202404')
-                             and fi_date = '202404') as t1
+                                            where month_id = '202405')
+                             and fi_date = '202405') as t1
                      where service_id = '互联网专线'
-                       and is_resource = '具备') as a) t1) aa;
-
-
-
+                       and is_resource = '具备') as a) t1) aa
 union all
 select pro_name,
        area_name,
@@ -272,11 +269,11 @@ from (select meaning                            as pro_name,                --�
                                   day_id
                            from (select *
                                  from DC_DWD.DWD_D_MRT_ZQZT_ORDER_DETAIL
-                                 where month_id = '202404'
+                                 where month_id = '202405'
                                    and day_id in (select max(day_id)
                                                   from DC_DWD.DWD_D_MRT_ZQZT_ORDER_DETAIL
-                                                  where month_id = '202404')
-                                   and fi_date = '202404') as t1
+                                                  where month_id = '202405')
+                                   and fi_date = '202405') as t1
                            where service_id = '互联网专线'
                              and is_resource = '具备') as a
                               left join (select area_id_cbss, province_code, area_id_desc_cbss, prov_desc
@@ -315,11 +312,11 @@ from (select meaning                            as pro_name,                --�
                                   day_id
                            from (select *
                                  from DC_DWD.DWD_D_MRT_ZQZT_ORDER_DETAIL
-                                 where month_id = '202404'
+                                 where month_id = '202405'
                                    and day_id in (select max(day_id)
                                                   from DC_DWD.DWD_D_MRT_ZQZT_ORDER_DETAIL
-                                                  where month_id = '202404')
-                                   and fi_date = '202404') as t1
+                                                  where month_id = '202405')
+                                   and fi_date = '202405') as t1
                            where service_id = '互联网专线'
                              and is_resource = '具备') as a
                      group by month_id
@@ -357,11 +354,11 @@ from (select meaning                            as pro_name,                --�
                                   day_id
                            from (select *
                                  from DC_DWD.DWD_D_MRT_ZQZT_ORDER_DETAIL
-                                 where month_id = '202404'
+                                 where month_id = '202405'
                                    and day_id in (select max(day_id)
                                                   from DC_DWD.DWD_D_MRT_ZQZT_ORDER_DETAIL
-                                                  where month_id = '202404')
-                                   and fi_date = '202404') as t1
+                                                  where month_id = '202405')
+                                   and fi_date = '202405') as t1
                            where service_id in ('SDH', '以太网专线')
                              and is_resource = '具备') as a
                               left join (select area_id_cbss, province_code, area_id_desc_cbss, prov_desc
@@ -401,11 +398,11 @@ from (select meaning                            as pro_name,                --�
                                   day_id
                            from (select *
                                  from DC_DWD.DWD_D_MRT_ZQZT_ORDER_DETAIL
-                                 where month_id = '202404'
+                                 where month_id = '202405'
                                    and day_id in (select max(day_id)
                                                   from DC_DWD.DWD_D_MRT_ZQZT_ORDER_DETAIL
-                                                  where month_id = '202404')
-                                   and fi_date = '202404') as t1
+                                                  where month_id = '202405')
+                                   and fi_date = '202405') as t1
                            where service_id in ('SDH', '以太网专线')
                              and is_resource = '具备') as a
                      group by month_id
@@ -444,11 +441,11 @@ from (select meaning                            as pro_name,                --�
                                   day_id
                            from (select *
                                  from DC_DWD.DWD_D_MRT_ZQZT_ORDER_DETAIL
-                                 where month_id = '202404'
+                                 where month_id = '202405'
                                    and day_id in (select max(day_id)
                                                   from DC_DWD.DWD_D_MRT_ZQZT_ORDER_DETAIL
-                                                  where month_id = '202404')
-                                   and fi_date = '202404') as t1
+                                                  where month_id = '202405')
+                                   and fi_date = '202405') as t1
                            where is_resource = '具备') as a
                               left join (select area_id_cbss, province_code, area_id_desc_cbss, prov_desc
                                          from db_der_arm.dim_pub_cb_area_map) as b
@@ -488,15 +485,15 @@ from (select meaning                            as pro_name,                --�
                                   day_id
                            from (select *
                                  from DC_DWD.DWD_D_MRT_ZQZT_ORDER_DETAIL
-                                 where month_id = '202404'
+                                 where month_id = '202405'
                                    and day_id in (select max(day_id)
                                                   from DC_DWD.DWD_D_MRT_ZQZT_ORDER_DETAIL
-                                                  where month_id = '202404')
-                                   and fi_date = '202404') as t1
+                                                  where month_id = '202405')
+                                   and fi_date = '202405') as t1
                            where is_resource = '具备') as a
                      group by month_id) t1
                      right join (select * from dc_dim.dim_province_code) t2 on t1.pro_id = t2.code
-                and kpi_id = '省内点对点专线五日开通率') c) aa;
+                and kpi_id = '省内点对点专线五日开通率') c) aa
 union all
 select pro_name,
        area_name,
@@ -607,11 +604,11 @@ from (select meaning                            as pro_name,                --�
                                   day_id
                            from (select *
                                  from DC_DWD.DWD_D_MRT_ZQZT_ORDER_DETAIL
-                                 where month_id = '202404'
+                                 where month_id = '202405'
                                    and day_id in (select max(day_id)
                                                   from DC_DWD.DWD_D_MRT_ZQZT_ORDER_DETAIL
-                                                  where month_id = '202404')
-                                   and fi_date = '202404') as t1
+                                                  where month_id = '202405')
+                                   and fi_date = '202405') as t1
                            where service_id = '互联网专线'
                              and is_resource = '具备') as a
                               left join (select area_id_cbss, province_code, area_id_desc_cbss, prov_desc
@@ -650,11 +647,11 @@ from (select meaning                            as pro_name,                --�
                                   day_id
                            from (select *
                                  from DC_DWD.DWD_D_MRT_ZQZT_ORDER_DETAIL
-                                 where month_id = '202404'
+                                 where month_id = '202405'
                                    and day_id in (select max(day_id)
                                                   from DC_DWD.DWD_D_MRT_ZQZT_ORDER_DETAIL
-                                                  where month_id = '202404')
-                                   and fi_date = '202404') as t1
+                                                  where month_id = '202405')
+                                   and fi_date = '202405') as t1
                            where service_id = '互联网专线'
                              and is_resource = '具备') as a
                      group by month_id
@@ -692,11 +689,11 @@ from (select meaning                            as pro_name,                --�
                                   day_id
                            from (select *
                                  from DC_DWD.DWD_D_MRT_ZQZT_ORDER_DETAIL
-                                 where month_id = '202404'
+                                 where month_id = '202405'
                                    and day_id in (select max(day_id)
                                                   from DC_DWD.DWD_D_MRT_ZQZT_ORDER_DETAIL
-                                                  where month_id = '202404')
-                                   and fi_date = '202404') as t1
+                                                  where month_id = '202405')
+                                   and fi_date = '202405') as t1
                            where service_id in ('SDH', '以太网专线')
                              and is_resource = '具备') as a
                               left join (select area_id_cbss, province_code, area_id_desc_cbss, prov_desc
@@ -736,11 +733,11 @@ from (select meaning                            as pro_name,                --�
                                   day_id
                            from (select *
                                  from DC_DWD.DWD_D_MRT_ZQZT_ORDER_DETAIL
-                                 where month_id = '202404'
+                                 where month_id = '202405'
                                    and day_id in (select max(day_id)
                                                   from DC_DWD.DWD_D_MRT_ZQZT_ORDER_DETAIL
-                                                  where month_id = '202404')
-                                   and fi_date = '202404') as t1
+                                                  where month_id = '202405')
+                                   and fi_date = '202405') as t1
                            where service_id in ('SDH', '以太网专线')
                              and is_resource = '具备') as a
                      group by month_id
@@ -779,11 +776,11 @@ from (select meaning                            as pro_name,                --�
                                   day_id
                            from (select *
                                  from DC_DWD.DWD_D_MRT_ZQZT_ORDER_DETAIL
-                                 where month_id = '202404'
+                                 where month_id = '202405'
                                    and day_id in (select max(day_id)
                                                   from DC_DWD.DWD_D_MRT_ZQZT_ORDER_DETAIL
-                                                  where month_id = '202404')
-                                   and fi_date = '202404') as t1
+                                                  where month_id = '202405')
+                                   and fi_date = '202405') as t1
                            where is_resource = '具备') as a
                               left join (select area_id_cbss, province_code, area_id_desc_cbss, prov_desc
                                          from db_der_arm.dim_pub_cb_area_map) as b
@@ -823,11 +820,11 @@ from (select meaning                            as pro_name,                --�
                                   day_id
                            from (select *
                                  from DC_DWD.DWD_D_MRT_ZQZT_ORDER_DETAIL
-                                 where month_id = '202404'
+                                 where month_id = '202405'
                                    and day_id in (select max(day_id)
                                                   from DC_DWD.DWD_D_MRT_ZQZT_ORDER_DETAIL
-                                                  where month_id = '202404')
-                                   and fi_date = '202404') as t1
+                                                  where month_id = '202405')
+                                   and fi_date = '202405') as t1
                            where is_resource = '具备') as a
                      group by month_id) t1
                      right join (select * from dc_dim.dim_province_code) t2 on t1.pro_id = t2.code

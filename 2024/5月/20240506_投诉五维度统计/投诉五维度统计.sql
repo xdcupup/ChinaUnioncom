@@ -85,7 +85,7 @@ set mapreduce.job.queuename = q_dc_dw;
 with t1 as (select *
             from dc_dwd.cp_lianjie
             where fl = '投诉'
-              and substr(archived_time, 0, 6) = '202404'),
+              and substr(archived_time, 0, 6) = '202405'),
      t3 as (select sheet_no,
                    compl_prov_name,
                    compl_area_name,
