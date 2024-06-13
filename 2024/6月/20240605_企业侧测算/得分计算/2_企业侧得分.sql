@@ -28,8 +28,8 @@ create table dc_dwd.qyc_temp
     pro_name       string comment '省份'
 ) comment '企业侧' row format delimited fields terminated by ', ' stored as textfile
     location 'hdfs://beh/user/dc_dw/dc_dwd.db/qyc_0511';
--- hdfs dfs -put /home/dc_dw/xdc_data/qyc_0511.csv /user/dc_dw
-load data inpath '/user/dc_dw/qyc_0511.csv' overwrite into table dc_dwd.qyc_temp;
+-- hdfs dfs -put /home/dc_dw/xdc_data/fwbz_qyc_0611.csv /user/dc_dw
+load data inpath '/user/dc_dw/fwbz_qyc_0611.csv' overwrite into table dc_dwd.qyc_temp;
 select *
 from dc_dwd.qyc_temp;
 
@@ -138,3 +138,6 @@ from (select *,
                  end)           as rn
       from dc_dwd.qyc_temp) aa
 ;
+
+
+select * from  dc_dwd.qyc_temp_01;

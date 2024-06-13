@@ -65,6 +65,7 @@ select *
 from dc_dwd.xdc_temp01;
 
 
+
 -- 海南省
 select '主动服务满意率'                  as index_name,
        '全量'                                   as cust_range,
@@ -155,6 +156,9 @@ from (select '主动服务满意率'                  as index_name,
             where date_id like '${v_month}%'
               and province_name is not null
             group by province_name) t1) t3
+
+
+
 union all
 -- 海南省
 select '主动服务满意率'                  as index_name,

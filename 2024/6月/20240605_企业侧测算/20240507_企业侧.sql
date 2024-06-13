@@ -6,45 +6,33 @@ select *
 from dc_dm.dm_service_standard_enterprise_index
 where monthid = '202405'
   and pro_name = '全国';
-select pro_name, index_name, kpi_code, index_value_numerator, index_value_denominator, index_value, month_id
+select*
 from dc_dwd.dwd_service_standard_enterprise_index
-where month_id = '202405'
+where month_id = '202404'
   and pro_name = '全国';
 select *
 from dc_dwd.dwd_service_standard_enterprise_level;
 
+-- todo
 -- 企业侧报表结果
--- drop table dc_dwd.dwd_service_standard_enterprise_index;
--- create table dc_dwd.dwd_service_standard_enterprise_index
--- (
---     pro_name                string comment '省份名称',
---     area_name               string comment '地市名称',
---     index_level_1           string comment '指标级别一',
---     index_level_2           string comment '指标级别二',
---     index_level_3           string comment '指标级别三',
---     index_level_4           string comment '指标级别四',
---     kpi_code                string comment '指标编码',
---     index_name              string comment '五级-指标项名称',
---     standard_rule           string comment '达标规则',
---     traget_value_nation     string comment '目标值全国',
---     traget_value_pro        string comment '目标值省份',
---     index_unit              string comment '指标单位',
---     index_type              string comment '指标类型',
---     score_standard          string comment '得分达标值',
---     index_value_numerator   string comment '分子',
---     index_value_denominator string comment '分母',
---     index_value             string comment '指标值',
---     score                   string comment '得分'
--- ) comment '企业侧报表结果' partitioned by
---     (
---     month_id string
---     ) row format delimited fields terminated by ',' stored as textfile
---     location 'hdfs://beh/user/dc_dw/dc_dwd.db/dwd_service_standard_enterprise_index';
--- -- hdfs dfs -put /home/dc_dw/xdc_data/baobiao_202404.csv /user/dc_dw
--- load data inpath '/user/dc_dw/baobiao_202404.csv' overwrite into table dc_dwd.dwd_service_standard_enterprise_index partition (month_id = '202404');
--- select *
--- from dc_dwd.dwd_service_standard_enterprise_index
--- where month_id = '202404';
+drop table dc_dwd.dwd_service_standard_enterprise_index;
+create table dc_dwd.dwd_service_standard_enterprise_index
+(
+    pro_name                string comment '省份名称',
+    index_name              string comment '五级-指标项名称',
+    index_value_numerator   string comment '分子',
+    index_value_denominator string comment '分母',
+    index_value             string comment '指标值'
+) comment '企业侧报表结果' partitioned by
+    (
+    month_id string
+    ) row format delimited fields terminated by ',' stored as textfile
+    location 'hdfs://beh/user/dc_dw/dc_dwd.db/dwd_service_standard_enterprise_index';
+-- hdfs dfs -put /home/dc_dw/xdc_data/baobiao_202405.csv /user/dc_dw
+load data inpath '/user/dc_dw/baobiao_202405.csv' overwrite into table dc_dwd.dwd_service_standard_enterprise_index partition (month_id = '202405');
+select *
+from dc_dwd.dwd_service_standard_enterprise_index
+where month_id = '202405' and pro_name = '全国';
 
 
 select *
@@ -74,8 +62,7 @@ with t1 as (select index_name, b.meaning as pro_name
             where monthid = '202405'),
      t3 as (select *
             from dc_dwd.dwd_service_standard_enterprise_index
-            where (month_id = '202405'
-                      )),
+            where month_id = '202405' and index_name not in ('宽带测速满意率','宽带测速感知率','宽带测速满意率（老年人）','装维服务满意率')),
      -- t4 报表数据
      t4 as (select distinct t1.index_name,
 --        nvl(t3.index_value_numerator, t2.index_value_numerator)     as index_value_numerator,

@@ -23,7 +23,7 @@ select '预约完成率'                                           as index_name
 from dc_dwd.DWD_D_EVT_ECS_SERV_MANAGER_RES t1
          right join (select * from dc_dim.dim_province_code where region_code is not null) t2
                     on substr(t1.prov_id, 2, 3) = t2.code
-where month_id = '202404'
+where month_id = '202405'
 group by meaning
 union all
 select '预约完成率'                                           as index_name,
@@ -36,7 +36,7 @@ select '预约完成率'                                           as index_name
 from dc_dwd.DWD_D_EVT_ECS_SERV_MANAGER_RES t1
          right join (select * from dc_dim.dim_province_code where region_code is not null) t2
                     on substr(t1.prov_id, 2, 3) = t2.code
-where month_id = '202404'
+where month_id = '202405'
 union all
 select '预约完成率'                                           as index_name,
        '5-7'                                                  as cust_range,
@@ -48,7 +48,7 @@ select '预约完成率'                                           as index_name
 from dc_dwd.DWD_D_EVT_ECS_SERV_MANAGER_RES t1
          right join (select * from dc_dim.dim_province_code where region_code is not null) t2
                     on substr(t1.prov_id, 2, 3) = t2.code
-where month_id = '202404'
+where month_id = '202405'
   and cust_level in ('Z5', 'Z6', 'Z7')
 group by meaning
 union all
@@ -62,7 +62,7 @@ select '预约完成率'                                           as index_name
 from dc_dwd.DWD_D_EVT_ECS_SERV_MANAGER_RES t1
          right join (select * from dc_dim.dim_province_code where region_code is not null) t2
                     on substr(t1.prov_id, 2, 3) = t2.code
-where month_id = '202404'
+where month_id = '202405'
   and cust_level in ('Z5', 'Z6', 'Z7')
 ;
 --  0：待服务（未到预约时间），
@@ -75,7 +75,7 @@ where month_id = '202404'
 
 select distinct cust_level, star_cust_class_name, star_cust_class
 from dc_dwd.DWD_D_EVT_ECS_SERV_MANAGER_RES
-where month_id = '202404';
+where month_id = '202405';
 
 
 -- 集团满意度测评
@@ -96,6 +96,6 @@ select '预约完成率'                                  as index_name,
 from dc_dwd.DWD_D_EVT_ECS_SERV_MANAGER_RES t1
          right join (select * from dc_dim.dim_province_code where region_code is not null) t2
                     on substr(t1.prov_id, 2, 3) = t2.code
-where month_id = '202404'
+where month_id = '202405'
   and meaning in ('北京', '新疆', '福建')
 group by meaning;

@@ -1,113 +1,6 @@
 set hive.mapred.mode = nonstrict;
 set mapreduce.job.queuename = q_dc_dw;
 
-select trade_province_name                                                                                    as pro_name,
-       count(if(q3_2_netspeed_desc = '是', 1, null))                                                          as index_value_numerator,
-       count(if(q3_2_netspeed_desc in ('是', '否'), 1, null))                                                 as index_value_denominator,
-       count(if(q3_2_netspeed_desc = '是', 1, null)) / count(if(q3_2_netspeed_desc in ('是', '否'), 1, null)) as rate
-from (select *
-      from dc_dwa.dwa_d_broadband_machine_sendhis_ivrautorv
-      where dt_id like '${v_month_id}%') a
-         left join (select device_number
-                    from dc_dwa_cbss.dwa_r_prd_cb_user_info
-                    where age >= 65
-                    group by device_number) b on a.phone = b.device_number
-where trade_province_name is not null
-  and b.device_number is not null
-group by trade_province_name
-union all
-select '全国'                                                                                                 as pro_name,
-       count(if(q3_2_netspeed_desc = '是', 1, null))                                                          as index_value_numerator,
-       count(if(q3_2_netspeed_desc in ('是', '否'), 1, null))                                                 as index_value_denominator,
-       count(if(q3_2_netspeed_desc = '是', 1, null)) / count(if(q3_2_netspeed_desc in ('是', '否'), 1, null)) as rate
-from (select *
-      from dc_dwa.dwa_d_broadband_machine_sendhis_ivrautorv
-      where dt_id like '${v_month_id}%') a
-         left join (select device_number
-                    from dc_dwa_cbss.dwa_r_prd_cb_user_info
-                    where age >= 65
-                    group by device_number) b on a.phone = b.device_number
-where trade_province_name is not null
-  and b.device_number is not null;
-
-
-
-select index_code,
-       meaning                         as pro_name,
-       city_id,
-       city_name,
-       nvl(index_value, '--')          as index_value,
-       index_value_type,
-       nvl(index_value_denominator, 0) as index_value_denominator,
-       nvl(index_value_numerator, 0)   as index_value_numerator
-from (select 'FWBZ146'                          index_code,
-             province_name                   as pro_name,
-             '00'                               city_id,
-             '全省'                             city_name,
-             nvl(round(
-                         index_value_numerator / index_value_denominator,
-                         6
-                 ), '--')                       index_value,
-             '1'                                index_value_type,
-             nvl(index_value_denominator, 0) as index_value_denominator,
-             nvl(index_value_numerator, 0)   as index_value_numerator
-      from (select handle_province_name as province_name,
-                   sum(case
-                           when answer_manyi = '√' or answer_bumanyi = '√' or nswer_yiban = '√'
-                               then '1'
-                           else 0 end)  as index_value_denominator,
-                   sum(case
-                           when
-                               answer_manyi = '√'
-                               then 1
-                           else 0 end)  as index_value_numerator
-            from (select *
-                  from dc_dm.dm_d_cem_broadband_cl_speed_details_report
-                  where bus_sort = '宽带修障'
-                    and date_id rlike '${v_month_id}') a
-                     left join (select device_number
-                                from dc_dwa_cbss.dwa_r_prd_cb_user_info
-                                where age >= 65
-                                group by device_number) b
-                               on a.service_number = b.device_number
-            where handle_province_name is not null
-              and b.device_number is not null
-            group by handle_province_name) a) v
-         right join (select * from dc_dim.dim_province_code where region_code is not null) pc
-                    on v.pro_name = pc.meaning
-union all
-select 'FWBZ146' index_code,
-       '全国'    pro_name,
-       '00'      city_id,
-       '全省'    city_name,
-       round(
-               index_value_numerator / index_value_denominator,
-               6
-       )         index_value,
-       '1'       index_value_type,
-       index_value_denominator,
-       index_value_numerator
-from (select sum(case
-                     when answer_manyi = '√' or answer_bumanyi = '√' or nswer_yiban = '√'
-                         then '1'
-                     else 0 end) as index_value_denominator,
-             sum(case
-                     when
-                         answer_manyi = '√'
-                         then 1
-                     else 0 end) as index_value_numerator
-      from (select *
-            from dc_dm.dm_d_cem_broadband_cl_speed_details_report
-            where bus_sort = '宽带修障'
-              and date_id rlike '${v_month_id}') a
-               left join (select device_number
-                          from dc_dwa_cbss.dwa_r_prd_cb_user_info
-                          where age >= 65
-                          group by device_number) b
-                         on a.service_number = b.device_number
-      where handle_province_name is not null
-        and b.device_number is not null) a;
-
 
 ---- 最终 ----
 select pro_name,
@@ -156,26 +49,26 @@ select pro_name,
                                                      end
                end
            end as score
-from (select pro_name,                                                                              --省份名称
+from (select meaning                                                    as pro_name,                --省份名称
              '全省'                                                     as area_name,               --地市名称
-             '公众服务'                                                 as index_level_1,           -- 指标级别一
-             '渠道'                                                     as index_level_2_big,       -- 指标级别二大类
-             '智家工程师'                                               as index_level_2_small,     -- 指标级别二小类
-             '交付质量'                                                 as index_level_3,           --指标级别三
-             '全屋测速验收交付'                                         as index_level_4,           -- 指标级别四
-             '--'                                                       as kpi_code,                --指标编码
-             '宽带测速满意率'                                           as index_name,              --五级-指标项名称
+             '差异化服务'                                               as index_level_1,           -- 指标级别一
+             '特殊人群'                                                 as index_level_2_big,       -- 指标级别二大类
+             '老年人'                                                   as index_level_2_small,     -- 指标级别二小类
+             '特色渠道服务'                                             as index_level_3,           --指标级别三
+             '银龄服务便捷优先'                                         as index_level_4,           -- 指标级别四
+             'FWBZ159'                                                  as kpi_code,                --指标编码
+             '宽带测速满意率（老年人）'                                   as index_name,              --五级-指标项名称
              '≥'                                                        as standard_rule,           --达标规则
              '90%'                                                      as traget_value_nation,     --目标值全国
              '95%'                                                      as traget_value_pro,        --目标值省份
-             if(pro_name = '全国', '0.9', '0.95')                       as target_value,
+             if(meaning = '全国', '0.9', '0.95')                        as target_value,
              '分'                                                       as index_unit,              --指标单位
              '实时测评'                                                 as index_type,              --指标类型
              '90'                                                       as score_standard,          -- 得分达标值
              nvl(index_value_numerator, 0)                              as index_value_numerator,   --分子
              nvl(index_value_denominator, 0)                            as index_value_denominator, --分母;
              nvl(index_value_numerator / index_value_denominator, '--') as index_value
-      from (select t1.pro_name,
+      from (select meaning,
                    nvl(t1.index_value_denominator + t2.index_value_denominator, 0) as index_value_denominator,
                    nvl(t1.index_value_numerator + t2.index_value_numerator, 0)     as index_value_numerator
             from (select trade_province_name                                    as pro_name,
@@ -282,4 +175,11 @@ from (select pro_name,                                                          
                                                      group by device_number) b
                                                     on a.service_number = b.device_number
                                  where handle_province_name is not null
-                                   and b.device_number is not null) a) t2 on t1.pro_name = t2.pro_name) t3) t4;
+                                   and b.device_number is not null) a) t2
+                          on t1.pro_name = t2.pro_name
+                     right join (select meaning
+                                 from dc_dim.dim_province_code
+                                 where region_code is not null
+                                 union all
+                                 select '全国' as meaning) pro
+                                on t1.pro_name = pro.meaning) t3) t4;

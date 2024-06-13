@@ -59,5 +59,5 @@ create table dc_dwd.dwd_d_xdc_proc_name_cp
     location
         'hdfs://beh/user/dc_dw/dc_dwd.db/dwd_d_xdc_proc_name_cp';
 show partitions dc_dwd.dwd_d_xdc_proc_name_cp ;
-select * from dc_dwd.dwd_d_xdc_proc_name_cp where dateid = '20240528';
+select dateid from dc_dwd.dwd_d_xdc_proc_name_cp where dateid = '20240608';
 -- alter table dc_dwd.dwd_d_xdc_proc_name_cp drop partition ( date_id = '20240527');

@@ -2,9 +2,12 @@
 <project version="4">
   <component name="SqlDialectMappings">
     <file url="file://$PROJECT_DIR$/2024/4月/20240416_线下指标转置/线下指标转置.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/2024/5月/20240506_宽带指标口径调整/宽带测速满意率.sql" dialect="HiveQL" />
     <file url="file://$PROJECT_DIR$/2024/5月/20240506_投诉五维度统计/投诉五维度统计.sql" dialect="HiveQL" />
     <file url="file://$PROJECT_DIR$/2024/5月/20240507_主动服务满意率/主动服务满意率星级.sql" dialect="HiveQL" />
     <file url="file://$PROJECT_DIR$/2024/5月/20240507_企业侧/指标SQL更新/互联网专线三日开通率.sql" dialect="HiveQL" />
+    <file url="file://$PROJECT_DIR$/2024/5月/20240515_装移修障不满明细敏感数据提取/明细提取.sql" dialect="HiveQL" />
+    <file url="file://$PROJECT_DIR$/2024/5月/20240521_产品环比报表/建表.sql" dialect="HiveQL" />
     <file url="file://$PROJECT_DIR$/2024/5月/20240521_紧急开机满意率四五星合计/自助侧紧急开机满意率.sql" dialect="HiveQL" />
     <file url="file://$PROJECT_DIR$/2024/5月/20240523_装机当日通当日好_分市场类型/当日好.sql" dialect="HiveQL" />
     <file url="file://$PROJECT_DIR$/2024/5月/20240523_装机当日通当日好_分市场类型/装机当日通当日好.sql" dialect="HiveQL" />
@@ -26,11 +29,13 @@
     <file url="file://$PROJECT_DIR$/2024/6月/20240603_VIP客户经理指标/VIP客户经理满意度.sql" dialect="HiveQL" />
     <file url="file://$PROJECT_DIR$/2024/6月/20240603_VIP客户经理指标/VIP客户经理问题解决率.sql" dialect="HiveQL" />
     <file url="file://$PROJECT_DIR$/2024/6月/20240603_VIP客户经理指标/VIP新表4项指标.sql" dialect="HiveQL" />
+    <file url="file://$PROJECT_DIR$/2024/6月/20240603_VIP客户经理指标/留言答复率，回复及时率.sql" dialect="HiveQL" />
     <file url="file://$PROJECT_DIR$/2024/6月/20240603_VIP客户经理指标/预约完成率.sql" dialect="HiveQL" />
     <file url="file://$PROJECT_DIR$/2024/6月/20240604_202305-202406产品在2024年5月份的投诉、申诉、舆情数据及明细/统计数据提取.sql" dialect="HiveQL" />
     <file url="file://$PROJECT_DIR$/2024/6月/20240604_企业侧指标口径更改/10010-全量工单响应率.sql" dialect="HiveQL" />
     <file url="file://$PROJECT_DIR$/2024/6月/20240604_企业侧指标口径更改/10010-全量工单满意率.sql" dialect="HiveQL" />
     <file url="file://$PROJECT_DIR$/2024/6月/20240604_企业侧指标口径更改/10010-全量工单解决率.sql" dialect="HiveQL" />
+    <file url="file://$PROJECT_DIR$/2024/6月/20240604_企业侧指标口径更改/修障服务响应率.sql" dialect="HiveQL" />
     <file url="file://$PROJECT_DIR$/2024/6月/20240604_投诉五维度统计/投诉五维度统计.sql" dialect="HiveQL" />
     <file url="file://$PROJECT_DIR$/2024/6月/20240604_紧急开机满意率增加四五星合计/自助侧紧急开机满意全部.sql" dialect="HiveQL" />
     <file url="file://$PROJECT_DIR$/2024/6月/20240604_紧急开机满意率增加四五星合计/自助侧紧急开机满意率45星.sql" dialect="HiveQL" />
@@ -38,8 +43,26 @@
     <file url="file://$PROJECT_DIR$/2024/6月/20240604_营业厅实时测评/日脚本.sql" dialect="HiveQL" />
     <file url="file://$PROJECT_DIR$/2024/6月/20240605_企业侧测算/20240507_企业侧.sql" dialect="HiveQL" />
     <file url="file://$PROJECT_DIR$/2024/6月/20240605_企业侧测算/建表.sql" dialect="HiveQL" />
+    <file url="file://$PROJECT_DIR$/2024/6月/20240605_企业侧测算/得分计算/1_导入mysql转置为竖向表.sql" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/2024/6月/20240605_企业侧测算/得分计算/2_企业侧得分.sql" dialect="HiveQL" />
+    <file url="file://$PROJECT_DIR$/2024/6月/20240605_企业侧测算/得分计算/3_全国得分计算.sql" dialect="HiveQL" />
+    <file url="file://$PROJECT_DIR$/2024/6月/20240605_企业侧测算/得分计算/4_加权计算得分.sql" dialect="HiveQL" />
     <file url="file://$PROJECT_DIR$/2024/6月/20240605_企业侧测算/测算得分.sql" dialect="HiveQL" />
+    <file url="file://$PROJECT_DIR$/2024/6月/20240606_内测用户数据匹配/数据匹配.sql" dialect="HiveQL" />
+    <file url="file://$PROJECT_DIR$/2024/6月/20240606_投诉申诉舆情全量产品/投诉申诉舆情提取.sql" dialect="HiveQL" />
+    <file url="file://$PROJECT_DIR$/2024/6月/20240606_连夜修及校园宽带数据/校园宽带_修障当日好.sql" dialect="HiveQL" />
+    <file url="file://$PROJECT_DIR$/2024/6月/20240606_连夜修及校园宽带数据/校园宽带_装机当日通.sql" dialect="HiveQL" />
+    <file url="file://$PROJECT_DIR$/2024/6月/20240606_连夜修及校园宽带数据/连夜修.sql" dialect="HiveQL" />
+    <file url="file://$PROJECT_DIR$/2024/6月/20240611_紧急开机新版/新版紧急开机.sql" dialect="HiveQL" />
+    <file url="file://$PROJECT_DIR$/2024/6月/20240611_紧急开机新版/自建表.sql" dialect="HiveQL" />
+    <file url="file://$PROJECT_DIR$/2024/6月/20240611_营业厅满意度数据/发送量.sql" dialect="HiveQL" />
+    <file url="file://$PROJECT_DIR$/2024/6月/20240611_营业厅满意度数据/营业厅分渠道.sql" dialect="HiveQL" />
+    <file url="file://$PROJECT_DIR$/2024/6月/20240611_营业厅满意度数据/营业厅老测评.sql" dialect="HiveQL" />
+    <file url="file://$PROJECT_DIR$/2024/6月/20240611_营业厅满意度数据/营业厅脚本.sql" dialect="HiveQL" />
+    <file url="file://$PROJECT_DIR$/2024/6月/20240611_转置/五大窗口转置.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/2024/6月/20240611_转置/白皮书转置.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/2024/6月/20240612_投申诉舆情报表口径更改/底表.sql" dialect="HiveQL" />
+    <file url="file://$PROJECT_DIR$/2024/6月/20240612_投申诉舆情报表口径更改/建表.sql" dialect="HiveQL" />
     <file url="file://$PROJECT_DIR$/2024/test.sql" dialect="HiveQL" />
   </component>
 </project>

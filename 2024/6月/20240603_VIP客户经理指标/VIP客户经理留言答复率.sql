@@ -58,9 +58,9 @@ where month_id = '202404'
 select distinct speak_role
 from dc_dwd.DWD_M_EVT_ECS_SERV_MANAGER_MSG; -- cs user
 
-select distinct is_reply
+select *
 from dc_dwd.DWD_M_EVT_ECS_SERV_MANAGER_MSG
-where month_id = '202404'; --是 否
+where month_id = '202405' limit 10; --是 否
 
 select distinct user_province_code
 from dc_dwd.DWD_M_EVT_ECS_SERV_MANAGER_MSG; --是 否

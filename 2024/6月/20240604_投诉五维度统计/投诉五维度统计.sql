@@ -167,27 +167,20 @@ from t3
 group by pro_life_cycle_all,fl
 ;
 
+set hive.mapred.mode = nonstrict;
+set mapreduce.job.queuename = q_dc_dw;
+with t1 as (select *
+            from dc_dwd.cptssyqmxblj_new
+            where  archived_time >= '20240501'and archived_time <= '20240531')
+select proc_name as data,fl, count(*) as cnt
+from t1
+group by proc_name,fl
+;
+
 
 with t1 as (select *
             from dc_dwd.cptssyqmxblj_new
-            where  substr(archived_time, 0, 6) = '202405'),
-     t3 as (select sheet_no,
-                   compl_prov_name,
-                   compl_area_name,
-                   products_name,
-                   serv_type_name,
-                   serv_content,
-                   last_deal_content,
-                   accept_time,
-                   archived_time,
-                   fl,
-                   is_tousu,
-                   pro_life_cycle_all,
-                   clustering_problem_1,
-                   clustering_problem_2
-            from t1
-                     left join dc_dim.dim_211_sheet_product aa on t1.serv_type_name = aa.sheet_type)
-select products_name as data,fl, count(*) as cnt
-from t3
-group by products_name,fl
-;
+            where  archived_time >= '20240501'and archived_time <= '20240531')
+select fl, count(*) as cnt
+from t1
+group by fl

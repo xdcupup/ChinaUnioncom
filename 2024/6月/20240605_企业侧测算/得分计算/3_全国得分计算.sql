@@ -173,6 +173,7 @@ from t2
 
 select *
 from dc_dwd.qyc_temp_02;
+
 -- 无数据 转化为100分
 select level_1,
        level_2,
@@ -352,9 +353,9 @@ create table dc_dwd.qyc_temp_03
     xinjiang_score     string
 ) comment '企业侧' row format delimited fields terminated by ', ' stored as textfile
     location 'hdfs://beh/user/dc_dw/dc_dwd.db/qyc_temp_03';
--- hdfs dfs -put /home/dc_dw/xdc_data/qyc_03_temp.csv /user/dc_dw
-load data inpath '/user/dc_dw/qyc_03_temp.csv' overwrite into table dc_dwd.qyc_temp_03;
-
+-- hdfs dfs -put /home/dc_dw/xdc_data/dc_dwd_qyc_temp_03.csv /user/dc_dw
+load data inpath '/user/dc_dw/dc_dwd_qyc_temp_03.csv' overwrite into table dc_dwd.qyc_temp_03;
+select * from dc_dwd.qyc_temp_03;
 
 
 select level_1,

@@ -15,7 +15,7 @@ select 'VIP客户经理电话接听率'                                         
 from dc_dwd.DWD_D_EVT_ECS_SERV_MANAGER_CALL t1
          right join (select * from dc_dim.dim_province_code where region_code is not null) t2
                     on substr(t1.prov_id, 2, 3) = t2.code
-where month_id = '202404'
+where month_id = '202405'
   and access_type = 'inbound'
 group by meaning
 union all
@@ -28,7 +28,7 @@ select 'VIP客户经理电话接听率'                                         
 from dc_dwd.DWD_D_EVT_ECS_SERV_MANAGER_CALL t1
          right join (select * from dc_dim.dim_province_code where region_code is not null) t2
                     on substr(t1.prov_id, 2, 3) = t2.code
-where month_id = '202404'
+where month_id = '202405'
   and access_type = 'inbound'
 union all
 select 'VIP客户经理电话接听率'                                                         as index_name,
@@ -40,7 +40,7 @@ select 'VIP客户经理电话接听率'                                         
 from dc_dwd.DWD_D_EVT_ECS_SERV_MANAGER_CALL t1
          right join (select * from dc_dim.dim_province_code where region_code is not null) t2
                     on substr(t1.prov_id, 2, 3) = t2.code
-where month_id = '202404'
+where month_id = '202405'
   and access_type = 'inbound'
   and cust_level in ('Z5', 'Z6', 'Z7')
 group by meaning
@@ -54,7 +54,7 @@ select 'VIP客户经理电话接听率'                                         
 from dc_dwd.DWD_D_EVT_ECS_SERV_MANAGER_CALL t1
          right join (select * from dc_dim.dim_province_code where region_code is not null) t2
                     on substr(t1.prov_id, 2, 3) = t2.code
-where month_id = '202404'
+where month_id = '202405'
   and access_type = 'inbound'
   and cust_level in ('Z5', 'Z6', 'Z7')
 ;
