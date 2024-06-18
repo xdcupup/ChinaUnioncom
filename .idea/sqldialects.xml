@@ -20,6 +20,7 @@
     <file url="file://$PROJECT_DIR$/2024/5月/20240530_VIP客户经理指标/VIP新表4项指标.sql" dialect="HiveQL" />
     <file url="file://$PROJECT_DIR$/2024/5月/20240530_VIP客户经理指标/预约完成率.sql" dialect="HiveQL" />
     <file url="file://$PROJECT_DIR$/2024/5月/20240530_白皮书转置/白皮书转置.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/2024/6月/20240515_装移修障不满明细敏感数据提取/明细提取.sql" dialect="HiveQL" />
     <file url="file://$PROJECT_DIR$/2024/6月/20240603_0529外呼场所统计/0_导入客户群.sql" dialect="HiveQL" />
     <file url="file://$PROJECT_DIR$/2024/6月/20240603_0529外呼场所统计/2_外呼明细表.sql" dialect="HiveQL" />
     <file url="file://$PROJECT_DIR$/2024/6月/20240603_0529外呼场所统计/3_统计按场所.sql" dialect="HiveQL" />
@@ -62,7 +63,13 @@
     <file url="file://$PROJECT_DIR$/2024/6月/20240611_转置/五大窗口转置.sql" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/2024/6月/20240611_转置/白皮书转置.sql" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/2024/6月/20240612_投申诉舆情报表口径更改/底表.sql" dialect="HiveQL" />
+    <file url="file://$PROJECT_DIR$/2024/6月/20240612_投申诉舆情报表口径更改/底表插入历史数据.sql" dialect="HiveQL" />
     <file url="file://$PROJECT_DIR$/2024/6月/20240612_投申诉舆情报表口径更改/建表.sql" dialect="HiveQL" />
+    <file url="file://$PROJECT_DIR$/2024/6月/20240617_工单明细/渠道编码.sql" dialect="HiveQL" />
+    <file url="file://$PROJECT_DIR$/2024/6月/20240618_畅爽冰激凌5g套餐/明细.sql" dialect="HiveQL" />
+    <file url="file://$PROJECT_DIR$/2024/6月/20240618_附加产品中台调度加工/第一步.sql" dialect="HiveQL" />
+    <file url="file://$PROJECT_DIR$/2024/6月/20240618_附加产品中台调度加工/第二步.sql" dialect="HiveQL" />
+    <file url="file://$PROJECT_DIR$/2024/6月/20240623_投诉标签明细提取/明细提取.sql" dialect="HiveQL" />
     <file url="file://$PROJECT_DIR$/2024/test.sql" dialect="HiveQL" />
   </component>
 </project>

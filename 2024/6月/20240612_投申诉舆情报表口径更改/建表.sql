@@ -27,22 +27,21 @@ create table dc_dwd.dwd_d_xdc_serv_type_cp_new
 -- 行云库建模
 create table dc_dwd.dwd_d_xdc_serv_type_cp_new
 (
-    product_name varchar(100) comment '工单标签',
-    tousu        varchar(100) comment '投诉量',
-    shensu       varchar(100) comment '申诉量',
-    yuqing       varchar(100) comment '舆情量',
-    dateid       varchar(100) comment '报表日期',
-    date_id      varchar(100) comment '分区日期'
+    product_name varchar(1000) comment '工单标签',
+    tousu        varchar(1000) comment '投诉量',
+    shensu       varchar(1000) comment '申诉量',
+    yuqing       varchar(1000) comment '舆情量',
+    dateid       varchar(1000) comment '报表日期',
+    date_id      varchar(1000) comment '分区日期'
 ) comment '工单标签维度投诉申诉舆情统计-日表'
     partitioned by (date_id string );
 
 
 
--- select *
--- from dc_dwd.dwd_d_xdc_serv_type_cp
--- where date_id = '20240528';
--- show partitions dc_dwd.dwd_d_xdc_serv_type_cp;
--- alter table dc_dwd.dwd_d_xdc_serv_type_cp drop partition ( date_id = '20240527');
+select *
+from dc_dwd.dwd_d_xdc_serv_type_cp_new where date_id=20240614;
+show partitions dc_dwd.dwd_d_xdc_serv_type_cp_new;
+alter table dc_dwd.dwd_d_xdc_serv_type_cp_new drop partition ( date_id = '%0D');
 
 /*show create table dc_dwa.dwa_d_sheet_main_history_chinese;*/
 --  hadoop fs -ls -R hdfs://beh/user/dc_dw/dc_dwa.db/dwa_d_sheet_main_history_chinese
@@ -69,19 +68,19 @@ create table dc_dwd.dwd_d_xdc_proc_name_cp_new
             'org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat'
     location
         'hdfs://beh/user/dc_dw/dc_dwd.db/dwd_d_xdc_proc_name_cp_new';
--- show partitions dc_dwd.dwd_d_xdc_proc_name_cp_new ;
--- select dateid from dc_dwd.dwd_d_xdc_proc_name_cp_new where dateid = '20240608';
--- alter table dc_dwd.dwd_d_xdc_proc_name_cp_new drop partition ( date_id = '20240527');
+show partitions dc_dwd.dwd_d_xdc_proc_name_cp_new ;
+select * from dc_dwd.dwd_d_xdc_proc_name_cp_new where date_id = '20240613';
+-- alter table dc_dwd.dwd_d_xdc_proc_name_cp_new drop partition ( date_id = '20240613');
 
 
 -- 行云库建模
 create table dc_dwd.dwd_d_xdc_proc_name_cp_new
 (
-    proc_name varchar(100) comment '产品名称',
-    tousu     varchar(100) comment '投诉量',
-    shensu    varchar(100) comment '申诉量',
-    yuqing    varchar(100) comment '舆情量',
-    dateid    varchar(100) comment '报表日期',
-    date_id   varchar(100) comment '分区日期'
+    proc_name varchar(1000) comment '产品名称',
+    tousu     varchar(1000) comment '投诉量',
+    shensu    varchar(1000) comment '申诉量',
+    yuqing    varchar(1000) comment '舆情量',
+    dateid    varchar(1000) comment '报表日期',
+    date_id   varchar(1000) comment '分区日期'
 ) comment '工单标签维度投诉申诉舆情统计-日表'
     partitioned by (date_id string );

@@ -5,7 +5,7 @@ select link_phone
 from yy_dwd.dwd_d_on_state_yw
 where month_id = '202401'
 limit 10;
-select distinct score
+    select distinct status
 from yy_dwd.dwd_d_on_state_yw;
 select create_day
 from yy_dwd.dwd_d_on_state_yw
@@ -22,7 +22,7 @@ where dt_id >= '20231001'
   and dt_id <= '20240531'
   and service_type_name is not null;
 
-
+desc yy_dwd.dwd_d_on_state_yw;
 
 select t1.link_phone,
        t1.score,

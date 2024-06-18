@@ -12,7 +12,7 @@ show create table dc_dm.DM_D_DE_GPZFW_YXCS_ACC;
 insert overwrite table dc_dwd.dwd_d_xdc_serv_type_cp_new partition (date_id = '${l_day}')
 select serv_type_name                  as product_name,
        count(if(fl = '投诉', 1, null)) as tousu,
-       count(if(fl = '申诉', 1, null)) as shensu,
+       count(if(fl = '申告', 1, null)) as shensu,
        count(if(fl = '舆情', 1, null)) as yuqing,
        '${l_day}'                      as dateid
 from (select *
@@ -140,9 +140,10 @@ where archived_time = '${l_day}'
 group by serv_type_name;
 
 -- 产品
+-- insert overwrite table  dc_dwd.dwd_d_xdc_proc_name_cp_new partition (date_id = '${l_day}')
 select proc_name,
        count(if(fl = '投诉', 1, null)) as tousu,
-       count(if(fl = '申诉', 1, null)) as shensu,
+       count(if(fl = '申告', 1, null)) as shensu,
        count(if(fl = '舆情', 1, null)) as yuqing,
        '${l_day}'                      as dateid
 from (select *

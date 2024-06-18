@@ -66,8 +66,8 @@ from (select *,
                          case
                              when cast(index_value as decimal(32, 2)) <= cast(target_value as decimal(32, 2)) then 100
                              when cast(index_value as decimal(32, 2)) > cast(target_value as decimal(32, 2))
-                                 then round((2 - index_value / target_value) * 100, 4)
-                             when index_value / target_value >= 2 then 0
+                                 then round((2 - cast(index_value as decimal(32, 2))  / cast(target_value as decimal(32, 2)) ) * 100, 4)
+                             when cast(index_value as decimal(32, 2))  / cast(target_value as decimal(32, 2)) >= 2 then 0
                              end
                      when index_type = '实时测评' then
                          case
@@ -75,13 +75,13 @@ from (select *,
                                   cast(target_value as decimal(32, 2)) then 100
                              when cast(index_value as decimal(32, 2)) <
                                   cast(target_value as decimal(32, 2))
-                                 then round(index_value / target_value * 100, 4) end
+                                 then round(cast(index_value as decimal(32, 2)) / cast(target_value as decimal(32, 2)) * 100, 4) end
                      when index_type = '投诉率' then
                          case
                              when cast(index_value as decimal(32, 2)) / cast(target_value as decimal(32, 2)) >= 2 then 0
                              when cast(index_value as decimal(32, 2)) <= cast(target_value as decimal(32, 2)) then 100
                              when cast(index_value as decimal(32, 2)) > cast(target_value as decimal(32, 2))
-                                 then round((2 - index_value / target_value) * 100, 4)
+                                 then round((2 - cast(index_value as decimal(32, 2)) / cast(target_value as decimal(32, 2))) * 100, 4)
                              end
                      when index_type = '系统指标' then
                          -- 正向
@@ -91,16 +91,16 @@ from (select *,
                                      when cast(index_value as decimal(32, 2)) >= cast(target_value as decimal(32, 2))
                                          then 100
                                      when cast(index_value as decimal(32, 2)) < cast(target_value as decimal(32, 2))
-                                         then round(index_value / target_value * 100, 4)
+                                         then round(cast(index_value as decimal(32, 2)) / cast(target_value as decimal(32, 2)) * 100, 4)
                                      end
                              when target_db_rule = '≤' then
                                  case
                                      when cast(index_value as decimal(32, 2)) <= cast(target_value as decimal(32, 2))
                                          then 100
                                      when cast(index_value as decimal(32, 2)) > cast(target_value as decimal(32, 2))
-                                         then round((1 - (index_value - target_value) / (1 - target_value)) * 100, 4)
+                                         then round((1 - (cast(index_value as decimal(32, 2)) - cast(target_value as decimal(32, 2))) / (1 - cast(target_value as decimal(32, 2)))) * 100, 4)
                                      end end
-                     when index_type = '体验穿越' then index_value * -0.1
+                     when index_type = '体验穿越' then cast(index_value as decimal(32, 2)) * -0.1
                      end, '--') as score,
              row_number() over (partition by level_6 order by case pro_name
                                                                   when '全国' then 1
@@ -140,4 +140,4 @@ from (select *,
 ;
 
 
-select * from  dc_dwd.qyc_temp_01;
+select * from  dc_dwd.qyc_temp_01  where level_6 = '积分投诉率' and pro_name = '宁夏';

@@ -59,6 +59,5 @@ where month_id = '202405'
   and cust_level in ('Z5', 'Z6', 'Z7')
 ;
 
-select substr(prov_id, 2, 3)
-from dc_dwd.DWD_D_EVT_ECS_SERV_MANAGER_CALL
-limit 10;
+select distinct month_id
+from dc_dwd.DWD_D_EVT_ECS_SERV_MANAGER_CALL;
