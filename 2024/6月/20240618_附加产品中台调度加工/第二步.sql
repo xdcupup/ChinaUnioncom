@@ -5,10 +5,10 @@ set mapreduce.job.queuename = q_dc_dw;
 -- 最终取 sheet_id,sheet_no,user_id,product_id,product_name;其中product_id和product_name多个拼接
 
 
--- hadoop fs -ls -R hdfs://Mycluster/user/hh_arm_prod_xkf_dc/warehouse/dc_dwd.db/dwd_d_prd_cb_user_product
+-- hadoop fs -ls -R hdfs://Mycluster/user/hh_arm_prod_xkf_dc/warehouse/dc_dwa.db/dwa_d_sheet_main_history_chinese
 -- hadoop fs -ls -R hdfs://Mycluster/user/hh_arm_prod_xkf_dc/warehouse/dc_dwd_cbss.db/DWD_D_PRD_CB_PRODUCT
-
-
+hdfs://Mycluster/user/hh_arm_prod_xkf_dc/warehouse/dc_dwa.db/dwa_d_sheet_main_history_chinese
+show create table dc_dwa.dwa_d_sheet_main_history_chinese;
 show create table dc_dwd_cbss.dwd_d_prd_cb_product;
 
 select *
@@ -47,12 +47,12 @@ from (select distinct t1.sheet_id, t1.sheet_no, t1.user_id, t2.product_id, produ
                          on t1.user_id = t2.user_id and t1.month_id = t2.month_id
                left join dc_dwd_cbss.dwd_d_prd_cb_product t3
                          on t2.product_id = t3.product_id and t1.month_id = t3.month_id
-      where t1.month_id = '202405'
---         and t1.day_id = '01'
-        and t2.month_id = '202405'
-        and t2.day_id = '30'
-        and t3.month_id = '202405'
-        and t3.day_id = '30') aa
+      where t1.month_id = '${v_month}'
+        and t1.day_id = '${v_day}'
+        and t2.month_id = '${v_month}'
+        and t2.day_id = '${v_day}'
+        and t3.month_id = '${v_month}'
+        and t3.day_id = '${v_day}') aa
 group by sheet_id, sheet_no, user_id, month_id, day_id
 ;
 
@@ -107,12 +107,15 @@ create table if not exists yy_dwd.dwd_d_sheet_user_product_collect
 
 show partitions yy_dwd.dwd_d_sheet_user_product_collect;
 
-select count(*),day_id from yy_dwd.dwd_d_sheet_user_product_collect where month_id = '202405' group by day_id ;
+
+select count(*),day_id from yy_dwd.dwd_d_sheet_user_product_collect where month_id = '202405' and day_id = '18' group by day_id ;
+select * from yy_dwd.dwd_d_sheet_user_product_collect where month_id = '202406' and day_id = '18' limit 100;
 
 
 
+-- alter table yy_dwd.dwd_d_sheet_user_product_collect drop partition (month_id = '202406' ,day_id = '18');
 
 
 
-
-
+-- dc_dwd.dwd_d_sheet_user_info_mid;
+-- yy_dwd.dwd_d_sheet_user_product_collect;

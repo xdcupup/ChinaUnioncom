@@ -1,9 +1,10 @@
 set hive.mapred.mode = nonstrict;
 set mapreduce.job.queuename = q_dc_dw;
 
-select count(distinct link_phone)
-from yy_dwd.dwd_d_on_state_yw;
-
+select link_phone
+from yy_dwd.dwd_d_on_state_yw
+where month_id = '202401'
+limit 10;
     select distinct status
 from yy_dwd.dwd_d_on_state_yw;
 select create_day
@@ -24,7 +25,7 @@ where dt_id >= '20231001'
 desc yy_dwd.dwd_d_on_state_yw;
 
 select t1.link_phone,
-       t1.score,
+
        t3.meaning,
 --        client_plan,
        compl_prov_name,

@@ -14,7 +14,7 @@ limit 10;
 desc dc_dwd_cbss.DWD_D_PRD_CB_PRODUCt;
 desc dc_dwa_cbss.dwa_r_prd_cb_user_info;
 
-show create table pc_dwd.tb_window_result;
+
 insert overwrite table dc_dwd.dwd_d_sheet_user_info_mid partition (month_id, day_id)
 select sheet_id, sheet_no, user_id, month_id, day_id
 from dc_dwa.dwa_d_sheet_main_history_chinese t1
@@ -41,5 +41,10 @@ create table if not exists dc_dwd.dwd_d_sheet_user_info_mid
             'org.apache.hadoop.hive.ql.io.orc.OrcOutputFormat'
     location
         'hdfs://Mycluster/warehouse/tablespace/external/hive/dc_dwd.db/dwd_d_sheet_user_info_mid';
+
+show partitions dc_dwd.dwd_d_sheet_user_info_mid;
+-- select count(*) from  dc_dwd.dwd_d_sheet_user_info_mid where month_id = '202406' and day_id = '18';
+-- select *  from  dc_dwd.dwd_d_sheet_user_info_mid where month_id = '202406' and day_id = '18' limit 100;
+alter table  dc_dwd.dwd_d_sheet_user_info_mid drop partition (month_id = '202406' ,day_id = '18');
 
 
