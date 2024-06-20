@@ -8,7 +8,9 @@
     <file url="file://$PROJECT_DIR$/2024/6月/20240619_五大窗口集体和个人指标/五大窗口报表脚本/当日通当日好脚本.sql" dialect="HiveQL" />
     <file url="file://$PROJECT_DIR$/2024/6月/20240619_五大窗口集体和个人指标/五大窗口报表脚本/月脚本.sql" dialect="HiveQL" />
     <file url="file://$PROJECT_DIR$/2024/6月/20240619_五大窗口集体和个人指标/分步/1_1_将报表结果导入自己创建的表.sql" dialect="HiveQL" />
+    <file url="file://$PROJECT_DIR$/2024/6月/20240619_五大窗口集体和个人指标/分步/1_建个人和集体人员信息表.sql" dialect="HiveQL" />
     <file url="file://$PROJECT_DIR$/2024/6月/20240619_五大窗口集体和个人指标/分步/3_1_营业厅指标个人.sql" dialect="HiveQL" />
+    <file url="file://$PROJECT_DIR$/2024/6月/20240619_五大窗口集体和个人指标/新版/营业厅.sql" dialect="HiveQL" />
     <file url="file://$PROJECT_DIR$/2024/6月/20240619_内测用户数据匹配/新版.sql" dialect="HiveQL" />
   </component>
 </project>
