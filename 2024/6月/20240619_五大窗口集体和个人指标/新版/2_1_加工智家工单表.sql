@@ -32,7 +32,7 @@ from (select *
                      from dc_dwd.person_2024
                      where window_type = '智家工程师') bb on aa.deal_userid = bb.stuff_id;
 
-select distinct stuff_name
+select *
 from dc_dwd.zhijia_good_serivce_person_${v_month_id}
 where zw_type = '修障装维';
 

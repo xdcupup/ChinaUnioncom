@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="SqlDialectMappings">
+    <file url="file://$PROJECT_DIR$/2024/5月/20240524_4月剩余外呼场所统计/0_导入客户群.sql" dialect="HiveQL" />
+    <file url="file://$PROJECT_DIR$/2024/5月/20240524_4月剩余外呼场所统计/2_外呼明细表.sql" dialect="HiveQL" />
+    <file url="file://$PROJECT_DIR$/2024/6月/20240603_0529外呼场所统计/0_导入客户群.sql" dialect="HiveQL" />
+    <file url="file://$PROJECT_DIR$/2024/6月/20240603_0529外呼场所统计/2_外呼明细表.sql" dialect="HiveQL" />
     <file url="file://$PROJECT_DIR$/2024/6月/20240618_附加产品中台调度加工/第一步.sql" dialect="HiveQL" />
     <file url="file://$PROJECT_DIR$/2024/6月/20240618_附加产品中台调度加工/第二步.sql" dialect="HiveQL" />
     <file url="file://$PROJECT_DIR$/2024/6月/20240619_五大窗口集体和个人指标/五大窗口报表新表.sql" dialect="HiveQL" />
@@ -10,7 +14,17 @@
     <file url="file://$PROJECT_DIR$/2024/6月/20240619_五大窗口集体和个人指标/分步/1_1_将报表结果导入自己创建的表.sql" dialect="HiveQL" />
     <file url="file://$PROJECT_DIR$/2024/6月/20240619_五大窗口集体和个人指标/分步/1_建个人和集体人员信息表.sql" dialect="HiveQL" />
     <file url="file://$PROJECT_DIR$/2024/6月/20240619_五大窗口集体和个人指标/分步/3_1_营业厅指标个人.sql" dialect="HiveQL" />
-    <file url="file://$PROJECT_DIR$/2024/6月/20240619_五大窗口集体和个人指标/新版/营业厅.sql" dialect="HiveQL" />
+    <file url="file://$PROJECT_DIR$/2024/6月/20240619_五大窗口集体和个人指标/新版/1_建个人和集体人员信息表.sql" dialect="HiveQL" />
+    <file url="file://$PROJECT_DIR$/2024/6月/20240619_五大窗口集体和个人指标/新版/2_1_加工智家工单表.sql" dialect="HiveQL" />
+    <file url="file://$PROJECT_DIR$/2024/6月/20240619_五大窗口集体和个人指标/新版/2_2_智家工程师.sql" dialect="HiveQL" />
+    <file url="file://$PROJECT_DIR$/2024/6月/20240619_五大窗口集体和个人指标/新版/3_营业厅.sql" dialect="HiveQL" />
+    <file url="file://$PROJECT_DIR$/2024/6月/20240619_五大窗口集体和个人指标/新版/4_1_热线的分.sql" dialect="HiveQL" />
+    <file url="file://$PROJECT_DIR$/2024/6月/20240619_五大窗口集体和个人指标/新版/4_热线.sql" dialect="HiveQL" />
+    <file url="file://$PROJECT_DIR$/2024/6月/20240619_五大窗口集体和个人指标/新版/vip.sql" dialect="HiveQL" />
     <file url="file://$PROJECT_DIR$/2024/6月/20240619_内测用户数据匹配/新版.sql" dialect="HiveQL" />
+    <file url="file://$PROJECT_DIR$/2024/6月/20240621_当日通当日好数据匹配/建表.sql" dialect="HiveQL" />
+    <file url="file://$PROJECT_DIR$/2024/6月/20240621_当日通当日好数据匹配/当日好脚本.sql" dialect="HiveQL" />
+    <file url="file://$PROJECT_DIR$/2024/6月/20240621_当日通当日好数据匹配/当日通匹配.sql" dialect="HiveQL" />
+    <file url="file://$PROJECT_DIR$/2024/6月/20240621_当日通当日好数据匹配/当日通脚本.sql" dialect="HiveQL" />
   </component>
 </project>

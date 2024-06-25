@@ -41,7 +41,7 @@ from (select user_number, scene_id, date_id
                          '30923376887456',
                          '30923411986080'
           )
-        and date_id >= '20240521') a
+        and date_id >= '20240521'  and date_id <='20240528' ) a
          left join
      (select a.*, notifyid
       from (select * from dc_src_rt.rpt_ivr_click_record where date_id >= '20240521') a
@@ -50,7 +50,7 @@ from (select user_number, scene_id, date_id
                             notifyid,
                             date_id
             from dc_src_rt.cti_cdr
-            where date_id >= '20240521'
+            where date_id >= '20240521' and date_id <='20240528'
               and notifyid in (
                                '88a5cbd990de469b81dd532439fd71cc',
                                '7731aee0a0c84306a64fbaae72ddf87f',

@@ -54,8 +54,11 @@ create table dc_dwd.group_source_0231000010925083
     location
         'hdfs://beh/user/dc_dw/dc_dwd.db/group_source_0231000010925083';
 
-select count(*)
+select count(distinct scenename)
 from dc_dwd.group_source_yw0521;
+
+
+317 + 386
 
 
 select count(*)

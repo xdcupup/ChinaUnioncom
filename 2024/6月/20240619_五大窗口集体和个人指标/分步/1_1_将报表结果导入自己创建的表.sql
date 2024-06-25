@@ -27,7 +27,7 @@ show partitions dc_dwd.5window_baobiao_res;
 -- where date_id rlike '2024-03' or date_id rlike '2024-04' or  date_id rlike '2024-05'
 -- group by name_code, name, index_name;" > zjdrt_2024030405.csv
 
-
+select distinct index_name from dc_dwd.5window_baobiao_res
 
 
 -- alter table  dc_dwd.5window_baobiao_res drop partition ( month_id = '202404');
@@ -68,24 +68,10 @@ group by name_code, name, index_name;
 
 
 
-select distinct index_name
-from pc_dwd.tb_window_result
-where date_id = '2024-05-01';
-select date_id
-from pc_dwd.tb_window_result
-limit 10;
-desc pc_dwd.tb_window_result;
 
 
 
--- 修障服务响应率 FWBZ349
--- 人工服务满意率（区域）	FWBZ050
--- 前台一次性问题解决率（区域）  FWBZ295
--- 全量工单满意率（省投） FWBZ365
--- 全量工单解决率（省投） FWBZ363
--- 全量工单响应率（省投）	FWBZ357
--- 投诉工单限时办结率（省投）	FWBZ063
 
 
-select *
-from dc_dwd.dwd_five_window_person_xdc;
+
+

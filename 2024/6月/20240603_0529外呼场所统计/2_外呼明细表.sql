@@ -45,16 +45,16 @@ from (select user_number, scene_id, date_id
                          '31277835641504',
                          '31278047660704'
           )
-        and date_id >= '20240529') a
+        and date_id >= '20240529' and date_id <= '20240603' ) a
          left join
      (select a.*, notifyid
-      from (select * from dc_src_rt.rpt_ivr_click_record where date_id >= '20240529') a
+      from (select * from dc_src_rt.rpt_ivr_click_record where date_id >= '20240529'  and date_id <= '20240603') a
                join
            (select distinct id,
                             notifyid,
                             date_id
             from dc_src_rt.cti_cdr
-            where date_id >= '20240529'
+            where date_id >= '20240529'  and date_id <= '20240603'
               and notifyid in (
                                '88a5cbd990de469b81dd532439fd71cc',
                                '7731aee0a0c84306a64fbaae72ddf87f',
@@ -194,8 +194,7 @@ from (select sf_name,
                          on bb.province_code = cc.sf_code and bb.eparchy_code = cc.ds_code) dd;
 
 
-select *
-from dc_Dwd.ywcp_mx_temp_4_b;
+select * from dc_Dwd.ywcp_mx_temp_4_b;
 
 
 
@@ -206,3 +205,6 @@ from (select *, row_number() over (partition by user_number) as rn from dc_Dwd.y
 where rn = 1;
 select *
 from dc_Dwd.ywcp_mx_temp_4_b;
+
+select *
+from dc_Dwd.ywcp_mx_temp_final_b;

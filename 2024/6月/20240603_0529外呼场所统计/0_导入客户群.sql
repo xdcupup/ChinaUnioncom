@@ -49,4 +49,4 @@ select * from dc_dwd.group_source_0531000010924222;
 
 
 
-select count(*) from dc_dwd.group_source_0529;
+select count(distinct id) from dc_dwd.group_source_0529;

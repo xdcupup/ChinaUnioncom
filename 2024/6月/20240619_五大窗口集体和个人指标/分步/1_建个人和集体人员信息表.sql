@@ -13,11 +13,11 @@ create table dc_dwd.person_2024
 ) comment '个人信息表' partitioned by ( month_id string )
     row format delimited fields terminated by ','
     stored as textfile location 'hdfs://beh/user/dc_dwd/dc_dwd.db/person_2024';
--- hdfs dfs -put /home/dc_dw/xdc_data/person_202404.csv /user/dc_dw
+-- hdfs dfs -put /home/dc_dw/xdc_data/person_202405.csv /user/dc_dw
 -- todo 将数据导入到HDFS上
-load data inpath '/user/dc_dw/person_202404.csv' overwrite into table dc_dwd.person_2024 partition (month_id = 202404);
+load data inpath '/user/dc_dw/person_202405.csv' overwrite into table dc_dwd.person_2024 partition (month_id = 202405);
 select *
-from dc_dwd.person_2024 where month_id = 202404;
+from dc_dwd.person_2024 ;
 
 drop table  dc_dwd.team_2024;
 create table dc_dwd.team_2024
@@ -36,9 +36,9 @@ create table dc_dwd.team_2024
 ) comment '团队信息表' partitioned by ( month_id string )
     row format delimited fields terminated by ','
     stored as textfile location 'hdfs://beh/user/dc_dwd/dc_dwd.db/team_2024';
--- hdfs dfs -put /home/dc_dw/xdc_data/team_202404.csv /user/dc_dw
+-- hdfs dfs -put /home/dc_dw/xdc_data/team_202405.csv /user/dc_dw
 -- todo 将数据导入到HDFS上
-load data inpath '/user/dc_dw/team_202404.csv' overwrite into table dc_dwd.team_2024 partition (month_id = 202404);
+load data inpath '/user/dc_dw/team_202405.csv' overwrite into table dc_dwd.team_2024 partition (month_id = 202405);
 select *
-from dc_dwd.team_2024 where month_id = 202404;
+from dc_dwd.team_2024 where month_id = 202405;
 
